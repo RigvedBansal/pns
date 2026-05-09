@@ -1,0 +1,1953 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MATH F113 Compre 2 Exam Command Centre</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --surface: #fffdf8;
+      --ink: #121314;
+      --muted: #62605b;
+      --line: #d8d0c2;
+      --navy: #19324a;
+      --red: #a83232;
+      --green: #136f63;
+      --gold: #b17718;
+      --blue: #27628f;
+      --violet: #5f4b8b;
+      --soft-red: #f7e8e5;
+      --soft-green: #e6f1ed;
+      --soft-gold: #f7eddb;
+      --soft-blue: #e8f0f5;
+      --shadow: 0 16px 34px rgba(25, 38, 52, 0.08);
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(90deg, rgba(18,19,20,0.035) 1px, transparent 1px) 0 0 / 24px 24px,
+        var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px clamp(16px, 3vw, 34px);
+      background: rgba(246, 241, 232, 0.94);
+      border-bottom: 1px solid rgba(18,19,20,0.12);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 220px;
+      font-weight: 900;
+      letter-spacing: 0;
+      color: var(--navy);
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .topnav {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .topnav::-webkit-scrollbar { display: none; }
+
+    .topnav a, .mode-btn, .print-btn, .filter-btn {
+      border: 1px solid rgba(18,19,20,0.14);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+    }
+
+    .topnav a:hover, .mode-btn:hover, .print-btn:hover, .filter-btn:hover {
+      border-color: rgba(18,19,20,0.34);
+    }
+
+    .mode-btn.active, .filter-btn.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: clamp(24px, 4vw, 56px);
+      align-items: center;
+      padding: clamp(38px, 6vw, 80px) clamp(18px, 5vw, 72px) 44px;
+      background:
+        linear-gradient(135deg, rgba(25,50,74,0.95), rgba(25,50,74,0.88)),
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.12), transparent 28%),
+        var(--navy);
+      color: white;
+      border-bottom: 4px solid var(--red);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 18px;
+      color: rgba(255,255,255,0.72);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 32px;
+      height: 2px;
+      background: var(--gold);
+      display: inline-block;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    .hero h1 {
+      max-width: 920px;
+      margin-bottom: 18px;
+      font-size: clamp(38px, 7.4vw, 88px);
+      line-height: 0.96;
+      letter-spacing: 0;
+    }
+
+    .hero .subtitle {
+      max-width: 760px;
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.78);
+      font-size: clamp(17px, 2vw, 22px);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 10px;
+    }
+
+    .hero-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: white;
+      color: var(--navy);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .hero-actions a.secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.32);
+    }
+
+    .briefing {
+      display: grid;
+      gap: 12px;
+    }
+
+    .brief-card {
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.08);
+      padding: 16px;
+    }
+
+    .brief-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: white;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brief-card span {
+      color: rgba(255,255,255,0.76);
+      font-size: 14px;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .stat b {
+      display: block;
+      color: white;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .stat span {
+      color: rgba(255,255,255,0.66);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    main { padding-bottom: 80px; }
+
+    .section {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 76px clamp(16px, 4vw, 44px) 0;
+      scroll-margin-top: 92px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 18px;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .section h2 {
+      margin-bottom: 0;
+      font-size: clamp(28px, 4.5vw, 50px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: var(--navy);
+    }
+
+    .section-head p {
+      max-width: 520px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .panel, .archetype-card, .module-card, .formula-card, .check-card, .source-card {
+      border: 1px solid rgba(18,19,20,0.12);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .panel { padding: 20px; }
+
+    .panel h3, .archetype-card h3, .module-card h3, .formula-card h3, .check-card h3, .source-card h3 {
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .panel p, .archetype-card p, .module-card p, .formula-card p, .check-card p, .source-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .callout {
+      border-left: 5px solid var(--red);
+      background: var(--soft-red);
+      padding: 18px 18px 18px 20px;
+      border-radius: var(--radius);
+    }
+
+    .callout.green { border-left-color: var(--green); background: var(--soft-green); }
+    .callout.gold { border-left-color: var(--gold); background: var(--soft-gold); }
+    .callout.blue { border-left-color: var(--blue); background: var(--soft-blue); }
+
+    .score-ladder {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .ladder-step {
+      min-height: 245px;
+      padding: 20px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(18,19,20,0.14);
+      background: var(--surface);
+    }
+
+    .ladder-step .range {
+      color: var(--red);
+      font-size: 32px;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .ladder-step ul, .module-card ul, .archetype-card ul, .formula-card ul, .source-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .ladder-step li, .module-card li, .archetype-card li, .formula-card li, .source-card li {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .marks-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 165px 1fr 52px;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(18,19,20,0.08);
+    }
+
+    .bar-row:last-child { border-bottom: 0; }
+
+    .bar-name {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--navy);
+    }
+
+    .bar-track {
+      height: 12px;
+      background: #ece4d7;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: var(--w);
+      background: var(--c);
+      border-radius: inherit;
+    }
+
+    .bar-marks {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    .heatmap {
+      display: grid;
+      grid-template-columns: 120px repeat(5, minmax(56px, 1fr));
+      border: 1px solid rgba(18,19,20,0.12);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .heatmap div {
+      min-height: 44px;
+      padding: 9px;
+      border-right: 1px solid rgba(18,19,20,0.08);
+      border-bottom: 1px solid rgba(18,19,20,0.08);
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .heatmap .head { background: var(--navy); color: white; }
+    .heatmap .topic { color: var(--navy); background: #fbf7ef; }
+    .heatmap .hot { background: var(--soft-red); color: var(--red); }
+    .heatmap .warm { background: var(--soft-gold); color: #7d510d; }
+    .heatmap .steady { background: var(--soft-green); color: var(--green); }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .search {
+      flex: 1;
+      min-width: min(100%, 300px);
+      height: 42px;
+      border: 1px solid rgba(18,19,20,0.16);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      padding: 0 16px;
+      font: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .search:focus { border-color: var(--navy); }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .archetype-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .archetype-card, .module-card, .formula-card, .source-card {
+      padding: 18px;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 10px 0 12px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #efe7da;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+    }
+
+    .tag.must { background: var(--soft-red); color: var(--red); }
+    .tag.high { background: var(--soft-gold); color: #80530d; }
+    .tag.clean { background: var(--soft-green); color: var(--green); }
+    .tag.blue { background: var(--soft-blue); color: var(--blue); }
+
+    .route {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(18,19,20,0.18);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .route b { color: var(--ink); }
+
+    .module-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .module-card {
+      display: grid;
+      gap: 14px;
+    }
+
+    .module-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .mini-stat {
+      min-height: 76px;
+      border-radius: var(--radius);
+      background: #f3eadc;
+      padding: 10px;
+    }
+
+    .mini-stat b {
+      display: block;
+      color: var(--navy);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .mini-stat span {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .module-sections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .module-block {
+      border-top: 2px solid rgba(18,19,20,0.12);
+      padding-top: 12px;
+    }
+
+    .module-block strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--navy);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .formula-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .formula {
+      display: block;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: var(--radius);
+      background: #f1eadf;
+      color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(18,19,20,0.12);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 900px;
+    }
+
+    th, td {
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(18,19,20,0.09);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th {
+      position: sticky;
+      top: 58px;
+      z-index: 2;
+      background: var(--navy);
+      color: white;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:hover td { background: #fbf5ec; }
+
+    td.marks {
+      color: var(--red);
+      font-weight: 950;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .level {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .level.easy { background: var(--soft-green); color: var(--green); }
+    .level.medium { background: var(--soft-gold); color: #80530d; }
+    .level.hard { background: var(--soft-red); color: var(--red); }
+    .level.vhard { background: #ece7f5; color: var(--violet); }
+
+    .paper-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .paper-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .paper-tab.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+
+    .papers-stack {
+      display: grid;
+      gap: 28px;
+    }
+
+    .exam-paper {
+      border: 1px solid rgba(18,19,20,0.18);
+      border-radius: var(--radius);
+      background: #fffefa;
+      box-shadow: var(--shadow);
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .exam-paper.hidden-paper { display: none; }
+
+    .exam-header {
+      text-align: center;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      line-height: 1.18;
+      margin-bottom: 14px;
+    }
+
+    .exam-header .inst {
+      font-size: clamp(18px, 2.8vw, 25px);
+    }
+
+    .exam-header .course {
+      font-size: clamp(16px, 2.3vw, 21px);
+    }
+
+    .exam-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-top: 2px solid var(--navy);
+      border-bottom: 2px solid var(--navy);
+      padding: 10px 0;
+      margin: 16px 0 12px;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .part-title {
+      margin: 18px 0 10px;
+      border-top: 2px solid var(--navy);
+      border-bottom: 2px solid var(--navy);
+      padding: 8px 0;
+      text-align: center;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .exam-instructions {
+      margin: 0 0 18px;
+      padding-left: 22px;
+      color: #30302c;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+    }
+
+    .exam-instructions li { margin: 5px 0; }
+
+    .question-block {
+      display: grid;
+      grid-template-columns: 72px 1fr 54px;
+      gap: 10px;
+      padding: 16px 0;
+      border-top: 1px solid rgba(18,19,20,0.16);
+      font-family: Georgia, "Times New Roman", serif;
+      color: #20211f;
+      font-size: 16px;
+    }
+
+    .question-block:first-of-type { border-top: 0; }
+
+    .q-label {
+      color: var(--navy);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .q-body p {
+      margin-bottom: 9px;
+    }
+
+    .q-body ol {
+      margin: 8px 0 0;
+      padding-left: 22px;
+    }
+
+    .q-body li {
+      margin: 7px 0;
+    }
+
+    .q-body table {
+      min-width: 0;
+      width: auto;
+      margin: 10px 0;
+      border: 1px solid rgba(18,19,20,0.28);
+      background: white;
+    }
+
+    .q-body th, .q-body td {
+      position: static;
+      padding: 6px 10px;
+      border: 1px solid rgba(18,19,20,0.28);
+      background: white;
+      color: #20211f;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+      text-align: center;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .q-marks-box {
+      color: var(--navy);
+      font-weight: 700;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .exam-end {
+      margin-top: 16px;
+      border-top: 2px solid var(--navy);
+      padding-top: 12px;
+      color: var(--navy);
+      text-align: center;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .progress-wrap {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.33fr) minmax(0, 0.67fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .progress-meter {
+      width: 100%;
+      height: 16px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e8dfd2;
+    }
+
+    .progress-meter span {
+      display: block;
+      height: 100%;
+      width: var(--progress, 0%);
+      background: var(--green);
+      transition: width 0.2s ease;
+    }
+
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .check-card {
+      padding: 16px;
+      box-shadow: none;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 8px;
+      align-items: start;
+      padding: 9px 0;
+      border-top: 1px solid rgba(18,19,20,0.08);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .check-item:first-of-type { border-top: 0; }
+
+    .check-item input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--green);
+      cursor: pointer;
+    }
+
+    details {
+      border-top: 1px dashed rgba(18,19,20,0.18);
+      padding-top: 10px;
+    }
+
+    summary {
+      color: var(--navy);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .footer {
+      margin-top: 80px;
+      padding: 34px clamp(18px, 5vw, 72px);
+      background: var(--navy);
+      color: rgba(255,255,255,0.76);
+      font-size: 13px;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1040px) {
+      .hero, .marks-grid, .progress-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .grid.three, .grid.four, .archetype-grid, .formula-grid, .source-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .brand { min-width: 0; }
+      .hero { min-height: auto; }
+      .stats-strip, .score-ladder, .module-layout, .module-sections, .check-grid,
+      .grid.two, .grid.three, .grid.four, .archetype-grid, .formula-grid, .source-grid {
+        grid-template-columns: 1fr;
+      }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .module-meta { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 120px 1fr 44px; }
+      .heatmap { grid-template-columns: 96px repeat(5, minmax(48px, 1fr)); }
+      .heatmap div { padding: 7px; font-size: 11px; }
+      .exam-line { flex-direction: column; gap: 4px; }
+      .question-block { grid-template-columns: 1fr; }
+      .q-marks-box { text-align: left; }
+    }
+
+    @media print {
+      body { background: white; }
+      .topbar, .hero-actions, .toolbar, .print-btn { display: none !important; }
+      .hero {
+        min-height: auto;
+        padding: 32px;
+        color: var(--ink);
+        background: white;
+        border-bottom: 2px solid var(--ink);
+      }
+      .brief-card, .stat {
+        color: var(--ink);
+        background: white;
+        border-color: #999;
+      }
+      .brief-card span, .stat span, .hero .subtitle { color: var(--muted); }
+      .brief-card strong, .stat b, .hero h1 { color: var(--ink); }
+      .section { padding-top: 34px; }
+      .panel, .archetype-card, .module-card, .formula-card, .source-card, .table-wrap {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      .exam-paper {
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        break-after: page;
+      }
+      .exam-paper.hidden-paper { display: block; }
+      .paper-actions { display: none !important; }
+      .question-block, .part-title, .exam-header { break-inside: avoid; }
+      th { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">MATH F113 <small>Compre 2</small></div>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#score">Score Plan</a>
+      <a href="#patterns">Archetypes</a>
+      <a href="#modules">Modules</a>
+      <a href="#formulas">Formula Bank</a>
+      <a href="#pyq">PYQ Matrix</a>
+      <a href="#mock">10 Papers</a>
+      <a href="#checklist">Checklist</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <span class="eyebrow">BITS Pilani Probability and Statistics</span>
+      <h1>Compre 2 Exam Command Centre</h1>
+      <p class="subtitle">An exam-first MATH F113 field manual built from the supplied PYQs, the old analysis report, and the 1091-page lecture slide bundle. It prioritises scoring routines, traps, formula triggers, and timed practice over passive notes.</p>
+      <div class="hero-actions">
+        <a href="#patterns">Start With High-Yield Patterns</a>
+        <a class="secondary" href="#pyq">Open Full PYQ Matrix</a>
+        <a class="secondary" href="#mock">Open 10 Practice Papers</a>
+      </div>
+      <div class="stats-strip" aria-label="Source summary">
+        <div class="stat"><b>675</b><span>approx. marks mapped across source years and report mappings</span></div>
+        <div class="stat"><b>12</b><span>repeatable exam archetypes</span></div>
+        <div class="stat"><b>7</b><span>scoring modules</span></div>
+        <div class="stat"><b>180</b><span>minutes, open book, calculators allowed</span></div>
+      </div>
+    </div>
+    <div class="briefing" aria-label="Exam briefing">
+      <div class="brief-card">
+        <strong>Core Verdict</strong>
+        <span>If you can execute regression, MLE, joint pdf, confidence intervals, hypothesis testing, normal approximation, and Bayes without hunting through slides, you are in the serious scoring band.</span>
+      </div>
+      <div class="brief-card">
+        <strong>Open-Book Reality</strong>
+        <span>The paper rewards method recall, setup clarity, and correct distribution choice. The book will not save a student who cannot recognise the trigger fast.</span>
+      </div>
+      <div class="brief-card">
+        <strong>Most Expensive Mistakes</strong>
+        <span>Wrong tail, wrong degrees of freedom, no continuity correction, triangular-region limits, treating Poisson conditional counts as Poisson, and skipping definitions of random variables.</span>
+      </div>
+      <div class="brief-card">
+        <strong>One-Line Strategy</strong>
+        <span>Bank deterministic computation first, then attempt the high-ceiling inference and estimator questions with clean notation.</span>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="score" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">01 · Score Architecture</span>
+          <h2>Marks Are Not Spread Evenly</h2>
+        </div>
+        <p>Inference dominates, but the safest marks are not always the highest-weight marks. The winning route is a blend: bank regression and standard intervals, then attack MLE, joint distributions, and Type-II/sample-size parts.</p>
+      </div>
+
+      <div class="score-ladder">
+        <div class="ladder-step">
+          <div class="range">0-45</div>
+          <h3>Bankable Marks</h3>
+          <ul>
+            <li>Regression normal equations, R², and variance estimate.</li>
+            <li>Basic z/t/proportion/chi-square confidence intervals.</li>
+            <li>Normal probabilities and binomial mean/variance.</li>
+            <li>First two parts of joint pdf questions: k and marginals.</li>
+          </ul>
+        </div>
+        <div class="ladder-step">
+          <div class="range">45-100</div>
+          <h3>Core Differentiators</h3>
+          <ul>
+            <li>MLE/MoM derivations with log-likelihood discipline.</li>
+            <li>Hypothesis tests with p-value and rejection-region language.</li>
+            <li>Conditional expectation in joint distributions.</li>
+            <li>CLT and normal approximation with continuity correction.</li>
+          </ul>
+        </div>
+        <div class="ladder-step">
+          <div class="range">100+</div>
+          <h3>Top-End Separators</h3>
+          <ul>
+            <li>Type-II error, power, and sample size algebra.</li>
+            <li>Gamma/chi-square pivots and non-standard confidence intervals.</li>
+            <li>Proof questions: independence transformations, mutual exclusive vs independent.</li>
+            <li>Custom rejection regions and estimator comparison.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="marks-grid" style="margin-top:18px">
+        <div class="panel">
+          <h3>Approximate Exposure By Module</h3>
+          <p>Mapped from the existing PYQ report and the supplied 2022 paper. Use this as a preparation priority map.</p>
+          <div id="bars"></div>
+        </div>
+        <div class="panel">
+          <h3>Year-To-Year Heatmap</h3>
+          <p>Dark cells are repeat appearances. The exam repeatedly rotates the same structures with new stories and parameter values.</p>
+          <div class="heatmap" aria-label="Topic heatmap">
+            <div class="head">Topic</div><div class="head">2022</div><div class="head">2023</div><div class="head">2024</div><div class="head">Dec 24*</div><div class="head">2025</div>
+            <div class="topic">Inference</div><div class="hot">38</div><div class="hot">34</div><div class="hot">39</div><div class="warm">26</div><div class="hot">39</div>
+            <div class="topic">Regression</div><div class="hot">20</div><div class="warm">14</div><div class="warm">12</div><div class="warm">14</div><div class="hot">19</div>
+            <div class="topic">MLE/MoM</div><div class="hot">20</div><div class="hot">28</div><div class="hot">29</div><div class="warm">12</div><div class="hot">19</div>
+            <div class="topic">Joint pdf</div><div class="hot">19</div><div class="warm">15</div><div class="hot">18</div><div class="hot">18</div><div class="warm">10</div>
+            <div class="topic">Normal/Gamma</div><div class="hot">19</div><div class="warm">13</div><div class="hot">19</div><div class="hot">32</div><div class="hot">29</div>
+            <div class="topic">Discrete/Poisson</div><div class="warm">11</div><div class="hot">24</div><div class="hot">19</div><div class="warm">17</div><div class="hot">39</div>
+            <div class="topic">Bayes/Probability</div><div class="warm">8</div><div class="warm">10</div><div class="warm">12</div><div class="hot">16</div><div class="hot">20</div>
+          </div>
+          <p style="margin-top:10px;font-size:12px">*Dec 2024 entries come from the supplied legacy HTML report.</p>
+        </div>
+      </div>
+
+      <div class="grid three" style="margin-top:18px">
+        <div class="callout">
+          <h3>First 60 Minutes</h3>
+          <p>Take the computationally stable questions: regression, standard CI, PMF construction, normal/binomial, and the easy parts of joint pdfs.</p>
+        </div>
+        <div class="callout gold">
+          <h3>Middle 75 Minutes</h3>
+          <p>Do MLE/MoM, full joint distributions, hypothesis-test core parts, and CLT/Poisson process questions.</p>
+        </div>
+        <div class="callout green">
+          <h3>Last 45 Minutes</h3>
+          <p>Return to Type-II/power, sample size, custom pivots, proof-heavy parts, and arithmetic checks.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="patterns" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">02 · Repeatable Archetypes</span>
+          <h2>The 12 Question Shapes To Master</h2>
+        </div>
+        <p>Each card gives the trigger phrase, the answer skeleton, and the mistake that loses marks. In practice, these are more valuable than reading another 100 slides.</p>
+      </div>
+      <div class="toolbar">
+        <input id="globalSearch" class="search" type="search" placeholder="Search topics, formulas, traps, years...">
+        <div class="filter-row" id="moduleFilters"></div>
+      </div>
+      <div id="archetypes" class="archetype-grid"></div>
+    </section>
+
+    <section id="modules" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">03 · Module Workbenches</span>
+          <h2>What To Practise, What To Write</h2>
+        </div>
+        <p>Every module is compressed into exam actions: what appears, what to write, what to drill, and which PYQs prove the pattern.</p>
+      </div>
+      <div id="moduleCards" class="module-layout"></div>
+    </section>
+
+    <section id="formulas" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">04 · Formula Bank</span>
+          <h2>Formulae With Triggers</h2>
+        </div>
+        <p>Open-book does not mean open-search. Know which page of your mind to open as soon as the question begins.</p>
+      </div>
+      <div id="formulaBank" class="formula-grid"></div>
+    </section>
+
+    <section id="pyq" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">05 · PYQ Matrix</span>
+          <h2>Question-Level Map</h2>
+        </div>
+        <p>Use this as the practice index. Sort mentally by module, solve under time, and then compare against the answer route, not just the final number.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Q</th>
+              <th>Module</th>
+              <th>Task</th>
+              <th>Route</th>
+              <th>Level</th>
+              <th>Marks</th>
+            </tr>
+          </thead>
+          <tbody id="pyqRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="mock" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">06 · Ten Full Practice Papers</span>
+          <h2>Compre-Style Paper Bank</h2>
+        </div>
+        <p>Ten complete 135-mark papers in the supplied exam style. They are written as printable question papers, not solution prompts, and use clean HTML math symbols instead of TeX markup.</p>
+      </div>
+      <div class="paper-actions">
+        <div id="paperTabs" class="paper-tabs" aria-label="Practice paper selector"></div>
+        <button class="print-btn" type="button" onclick="showAllPapers()">Show All</button>
+        <button class="print-btn" type="button" onclick="window.print()">Print Papers</button>
+      </div>
+      <div id="papersStack" class="papers-stack"></div>
+    </section>
+
+    <section id="sources" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">07 · Open-Book Index</span>
+          <h2>Where The Slide Deck Helps</h2>
+        </div>
+        <p>The 1091-page slide bundle is too large to browse during panic. These are fast landing zones for the main exam moves.</p>
+      </div>
+      <div class="source-grid">
+        <div class="source-card"><h3>Bayes and Total Probability</h3><p>Slides around pages 116 and 141.</p><ul><li>Use for partition diagrams and posterior probability notation.</li></ul></div>
+        <div class="source-card"><h3>MGF and Discrete Sums</h3><p>Slides around pages 237-238 and 708-711.</p><ul><li>Use for Poisson-sum and moment-generation arguments.</li></ul></div>
+        <div class="source-card"><h3>Poisson Process</h3><p>Slides around pages 316-322.</p><ul><li>Use for arrival counts, waiting times, and conditional counts.</li></ul></div>
+        <div class="source-card"><h3>Gamma and Chi-Square</h3><p>Slides around pages 534-543 and 556-563.</p><ul><li>Use for gamma distribution facts and chi-square pivots.</li></ul></div>
+        <div class="source-card"><h3>CLT</h3><p>Slides around pages 733-740 and 847-848.</p><ul><li>Use for sums, averages, and sample-size approximations.</li></ul></div>
+        <div class="source-card"><h3>Estimation</h3><p>Slides around pages 758-796.</p><ul><li>Use for unbiasedness, MoM, and MLE derivation language.</li></ul></div>
+        <div class="source-card"><h3>Confidence Intervals</h3><p>Slides around pages 812-835.</p><ul><li>Use for z/t/proportion/chi-square interval selection.</li></ul></div>
+        <div class="source-card"><h3>Regression and Testing</h3><p>Regression begins around page 929; hypothesis testing around page 1036.</p><ul><li>Use for normal equations, SSE, R², p-values, and power.</li></ul></div>
+      </div>
+    </section>
+
+    <section id="checklist" class="section">
+      <div class="section-head">
+        <div>
+          <span class="section-kicker">08 · 48-Hour Execution List</span>
+          <h2>Finishable Revision</h2>
+        </div>
+        <p>This checklist stores progress in the browser. It is deliberately skill-based: every item corresponds to marks you can win in the paper.</p>
+      </div>
+      <div class="progress-wrap">
+        <div class="panel">
+          <h3>Completion</h3>
+          <div class="progress-meter" aria-label="Checklist progress"><span id="progressBar"></span></div>
+          <p id="progressText" style="margin-top:10px">0 of 0 done.</p>
+          <button class="print-btn" type="button" onclick="resetChecklist()">Reset Checklist</button>
+          <div class="route"><b>Order:</b> regression, inference, estimation, joint pdf, continuous distributions, discrete distributions, probability proofs.</div>
+        </div>
+        <div id="checklistGrid" class="check-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <strong>MATH F113 Probability and Statistics · BITS Pilani</strong><br>
+    Built from supplied PYQs, the existing PYQ report, and the lecture slide bundle for focused preparation.
+  </footer>
+
+  <script>
+    const moduleColors = {
+      "Inference": "#a83232",
+      "Estimation": "#136f63",
+      "Continuous": "#27628f",
+      "Discrete": "#b17718",
+      "Regression": "#5f4b8b",
+      "Joint": "#19324a",
+      "Probability": "#7b4b2a"
+    };
+
+    const moduleMarks = [
+      ["Inference", 150],
+      ["Estimation", 100],
+      ["Continuous", 97],
+      ["Regression", 88],
+      ["Discrete", 83],
+      ["Joint", 81],
+      ["Probability", 76]
+    ];
+
+    const archetypes = [
+      {
+        module: "Probability",
+        title: "Conditional Probability / Bayes",
+        tags: ["MUST", "5-20 marks", "Setup-heavy"],
+        trigger: "A result is observed and you must infer which source/process caused it.",
+        route: "Define hypotheses H_i, compute P(H_i) and P(E|H_i), then use P(H_j|E)=P(H_j)P(E|H_j)/ΣP(H_i)P(E|H_i).",
+        trap: "Do not use P(E|H) as P(H|E). The denominator is the full evidence probability.",
+        anchors: "2025 Q1, 2024 Q1(a), 2023 Q1, 2022 Q1(a)."
+      },
+      {
+        module: "Discrete",
+        title: "Construct A PMF From A Story",
+        tags: ["MUST", "8-20 marks", "Expectation"],
+        trigger: "Prize, demand, quiz score, or average of discrete random variables.",
+        route: "List all possible X values, aggregate probabilities from mutually exclusive paths, verify sum = 1, then compute E[X] and requested probabilities.",
+        trap: "For composite experiments, the same prize/value can arise from different paths. Add those probabilities.",
+        anchors: "2025 Q1, 2023 Q2/Q6, 2022 Q1(b)."
+      },
+      {
+        module: "Discrete",
+        title: "Poisson Process Conditional Count",
+        tags: ["HIGH", "10-14 marks", "Binomial inside Poisson"],
+        trigger: "Given n arrivals by time T, ask how many arrived before smaller time s.",
+        route: "Conditioning on total n removes the Poisson rate: K | N(T)=n ~ Binomial(n, s/T).",
+        trap: "Do not compute a fresh Poisson probability after conditioning on the total count.",
+        anchors: "2024 Q2(b), 2023 Q3, Dec 2024 report."
+      },
+      {
+        module: "Continuous",
+        title: "Normal / Normal Approximation",
+        tags: ["MUST", "4-20 marks", "Continuity correction"],
+        trigger: "Large binomial n, normal data, grade cut-offs, rainfall, weights, or sample sums.",
+        route: "Identify μ and σ, standardise Z=(X-μ)/σ, apply continuity correction for discrete-to-normal conversion.",
+        trap: "P(24 ≤ X ≤ 30) becomes P(23.5 ≤ Y ≤ 30.5). Missing 0.5 is expensive.",
+        anchors: "Dec 2024 Q4, 2024 Q3(b), 2022 Q4."
+      },
+      {
+        module: "Continuous",
+        title: "Gamma / Chi-Square Pivot",
+        tags: ["MUST", "9-20 marks", "Advanced CI"],
+        trigger: "Gamma distribution with known shape and unknown scale, or CI for variance/standard deviation.",
+        route: "Use Gamma facts: E[X]=αβ, Var(X)=αβ², and 2ΣX_i/β ~ χ²(2nα) when shape α is known.",
+        trap: "For a CI, invert the chi-square inequality carefully; lower endpoint uses the upper chi-square quantile.",
+        anchors: "2025 Q5, 2023 Part B Q2, 2022 Q6."
+      },
+      {
+        module: "Joint",
+        title: "Joint PDF Pipeline",
+        tags: ["MUST", "12-19 marks", "Every year"],
+        trigger: "f(x,y)=... over rectangle or triangle; find k, marginals, independence, conditional expectation.",
+        route: "Normalise for k, integrate to get f_X and f_Y, test f_XY=f_Xf_Y, then compute f_{X|Y} or f_{Y|X}.",
+        trap: "On triangular regions the limits depend on x or y. Draw the region before integrating.",
+        anchors: "2025 Q2(b), 2024 Q4, 2023 Q5, 2022 Q5."
+      },
+      {
+        module: "Estimation",
+        title: "MLE For Custom Distributions",
+        tags: ["MUST", "8-19 marks", "Derivation"],
+        trigger: "Based on a random sample derive the MLE of θ, β, p, α, or λ.",
+        route: "Write L, take ln L, collect parameter terms, differentiate, set to zero, solve, and check the parameter range.",
+        trap: "Never differentiate the full product directly if log-likelihood is simpler.",
+        anchors: "2025 Q4, 2024 Part B Q1(a), Dec 2024 Q10, 2022 Q2(b)."
+      },
+      {
+        module: "Estimation",
+        title: "MoM / Unbiasedness / Estimator Comparison",
+        tags: ["HIGH", "5-13 marks", "Expectation algebra"],
+        trigger: "Find method-of-moments estimator, value of a for unbiasedness, or preferable estimator.",
+        route: "Set population moments equal to sample moments; for unbiasedness compute E[T]; for comparison use Var or MSE.",
+        trap: "For sample variance, keep track of n versus n-1 denominators and degrees of freedom.",
+        anchors: "2025 Q4(i), 2024 Part B Q1(b), 2023 Part B Q1, 2022 Q2(a)."
+      },
+      {
+        module: "Inference",
+        title: "Confidence Interval Family Selection",
+        tags: ["MUST", "7-20 marks", "Formula choice"],
+        trigger: "Construct a CI for mean, proportion, variance, standard deviation, or a gamma scale parameter.",
+        route: "Decide parameter type first: z for σ known/large n, t for unknown σ normal sample, χ² for variance, z for proportion.",
+        trap: "Do not use z when the question gives small n, unknown σ, and normal population.",
+        anchors: "2025 Q5, 2024 Part B Q2, 2023 Part B Q2, 2022 Q6/Q7."
+      },
+      {
+        module: "Inference",
+        title: "Hypothesis Test + p-Value + β",
+        tags: ["MUST", "12-19 marks", "Conclusion wording"],
+        trigger: "Test a claim, compute p-value, rejection region, Type-II error, or sample size for power.",
+        route: "State H0/H1, compute statistic, choose tail, compare with critical value or p-value, then calculate β under μ' or p'.",
+        trap: "One-tailed α=0.05 uses 1.645; two-tailed α=0.05 uses 1.96.",
+        anchors: "2025 Q6, 2024 Part B Q3, 2023 Part B Q3/Q4, 2022 Q8."
+      },
+      {
+        module: "Regression",
+        title: "Simple Linear Regression Computation",
+        tags: ["MUST", "12-20 marks", "Bankable"],
+        trigger: "Table of x and y; find normal equations, regression line, R², variance estimate.",
+        route: "Build columns x, y, x², y², xy; compute Sxx, Syy, Sxy; b=Sxy/Sxx, a=ȳ-bx̄, SSE=Syy-bSxy, R²=bSxy/Syy.",
+        trap: "Regression line must pass through (x̄, ȳ). Use this as an arithmetic check.",
+        anchors: "2025 Q7, 2024 Q1(b), 2023 Q4, 2022 Q3."
+      },
+      {
+        module: "Inference",
+        title: "Custom Rejection Region / Power",
+        tags: ["TOP END", "10-11 marks", "Distribution of statistic"],
+        trigger: "Reject H0 when a weighted sum of observations crosses a threshold.",
+        route: "Find the distribution of the weighted statistic under H0 for Type-I error and under the alternative for power.",
+        trap: "The statistic has variance σ²Σw_i², not σ² times the number of observations unless all weights are 1.",
+        anchors: "2024 Part B Q3(b)."
+      }
+    ];
+
+    const modules = [
+      {
+        name: "Inference",
+        marks: 150,
+        priority: "Rank 1",
+        certainty: "Every paper",
+        verdict: "The largest scoring block: confidence intervals plus hypothesis testing. Recent papers add β, power, p-values, and sample-size calculations.",
+        mustWrite: ["Parameter and hypotheses/interval target", "Test statistic or pivot with distribution", "Tail/df/critical value", "Numerical substitution", "Conclusion in words"],
+        formulas: ["z-CI: x̄ ± z_{α/2}σ/√n", "t-CI: x̄ ± t_{α/2,n-1}s/√n", "χ²-CI: ((n-1)s²/χ²_upper, (n-1)s²/χ²_lower)", "β(μ') = P(fail to reject H0 | μ=μ')"],
+        drills: ["One z-test with p-value", "One proportion test", "One β/sample-size question", "One CI for σ or σ²"],
+        pyq: ["2025 Q6 battery test [19]", "2024 B-Q3 custom/power [19]", "2023 B-Q3/B-Q4 [27]", "2022 Q8 proportion test [19]"]
+      },
+      {
+        name: "Estimation",
+        marks: 100,
+        priority: "Rank 2",
+        certainty: "Every paper",
+        verdict: "MLE is a guaranteed discriminator. MoM/unbiasedness questions are usually algebraic but reward clean expectation work.",
+        mustWrite: ["Sample notation", "Likelihood or moment equation", "Log-likelihood simplification", "Derivative = 0", "Estimator with parameter constraints"],
+        formulas: ["L(θ)=Πf(x_i;θ)", "ℓ(θ)=Σln f(x_i;θ)", "MoM: E[X]=x̄, E[X²]=m₂ if needed", "MSE(T)=Var(T)+Bias(T)²"],
+        drills: ["MLE for gamma-like pdf", "MLE for geometric stopping", "MoM for one-parameter distribution", "Unbiasedness of aΣY_i²"],
+        pyq: ["2025 Q4 [19]", "2024 B-Q1 [21]", "2023 B-Q1/B-Q2(ii) [21]", "2022 Q2 [20]"]
+      },
+      {
+        name: "Continuous",
+        marks: 97,
+        priority: "Rank 3",
+        certainty: "Every paper",
+        verdict: "Normal and gamma are the backbone. CDF derivations and normal approximation are fast if the distribution is recognised.",
+        mustWrite: ["Support first", "CDF/integral bounds", "Mean/variance before standardising", "Continuity correction if discrete", "Final probability with table lookup"],
+        formulas: ["F(x)=∫_{lower}^{x}f(t)dt", "Gamma(α,β): E=αβ, Var=αβ²", "Z=(X-μ)/σ", "Bin(n,p) ≈ N(np,npq)"],
+        drills: ["PDF to CDF", "Gamma stock/shortage probability", "Normal approximation with 0.5 correction", "Within k standard deviations from custom pdf"],
+        pyq: ["2025 Q2(a)/Q5 [29]", "2024 Q3 [19]", "2023 Q3 [13]", "2022 Q4 [19]"]
+      },
+      {
+        name: "Regression",
+        marks: 88,
+        priority: "Rank 4",
+        certainty: "Every paper",
+        verdict: "The cleanest bankable marks. It is arithmetic-heavy, so layout discipline matters more than cleverness.",
+        mustWrite: ["Five-column table", "Normal equations", "a and b values", "SSE and s²", "R² interpretation"],
+        formulas: ["b=Sxy/Sxx", "a=ȳ-bx̄", "SSE=Syy-bSxy", "s²=SSE/(n-2)", "R²=bSxy/Syy"],
+        drills: ["Solve one full table in 18 minutes", "Check line passes through (x̄,ȳ)", "Compute R² from Sxx/Syy/Sxy", "Regression probability difference"],
+        pyq: ["2025 Q7 [19]", "2024 Q1(b) [12]", "2023 Q4 [14]", "2022 Q3 [20]"]
+      },
+      {
+        name: "Discrete",
+        marks: 83,
+        priority: "Rank 5",
+        certainty: "High",
+        verdict: "Discrete questions hide inside stories: quiz scores, demand, Poisson processes, prize PMFs, and CLT for sums.",
+        mustWrite: ["Define X and support", "Distribution with parameters", "PMF table", "Expectation/variance", "Approximation justification"],
+        formulas: ["Bin: μ=np, Var=npq", "Poisson: P(X=k)=e^{-λ}λ^k/k!", "MGF sum: M_{X+Y}=M_XM_Y", "CLT sum: ΣX_i ≈ N(nμ,nσ²)"],
+        drills: ["PMF of average of two demands", "Poisson sum using MGF", "Conditional Poisson count", "CLT pastry/order quantity"],
+        pyq: ["2025 Q1/Q3 [39]", "2024 Q2 [19]", "2023 Q2/Q6/Q7 [28]", "2022 Q1(b,c) [11]"]
+      },
+      {
+        name: "Joint",
+        marks: 81,
+        priority: "Rank 6",
+        certainty: "Every paper",
+        verdict: "A dependable 10-19 mark structure. Draw the support; the rest is integration bookkeeping.",
+        mustWrite: ["Support diagram", "Normalisation integral", "Marginal integrals", "Independence test", "Conditional expectation/covariance"],
+        formulas: ["f_X(x)=∫f(x,y)dy", "f_{X|Y}=f(x,y)/f_Y(y)", "E[X|Y=y]=∫x f_{X|Y}dx", "Cov(X,Y)=E[XY]-E[X]E[Y]"],
+        drills: ["Rectangle support", "Triangle support", "Conditional expectation", "U=max(X,Y), V=min(X,Y) identity trick"],
+        pyq: ["2025 Q2(b) [10]", "2024 Q4 [18]", "2023 Q5 [15]", "2022 Q5 [19]"]
+      },
+      {
+        name: "Probability",
+        marks: 76,
+        priority: "Rank 7",
+        certainty: "High",
+        verdict: "Smaller direct weight, huge indirect weight. Bad probability notation damages every later module.",
+        mustWrite: ["Event definitions", "Conditional probability identity", "Independence/exclusivity statement", "Partition if Bayes", "Check probability bounds"],
+        formulas: ["P(A|B)=P(A∩B)/P(B)", "Independence: P(A∩B)=P(A)P(B)", "Mutually exclusive: P(A∩B)=0", "Total probability: P(E)=ΣP(H_i)P(E|H_i)"],
+        drills: ["Bayes with coins/cards", "Proof that exclusivity and independence differ", "Construct sample space", "Expected value as fair fee"],
+        pyq: ["2025 Q1 [20]", "2024 Q1(a) [7]", "2023 Q1 [10]", "2022 Q1(a) [8]"]
+      }
+    ];
+
+    const formulaGroups = [
+      {
+        module: "Probability",
+        title: "Probability Core",
+        trigger: "Event definitions, Bayes, independence proofs.",
+        formulas: ["P(A|B)=P(A∩B)/P(B)", "P(E)=ΣP(H_i)P(E|H_i)", "P(H_j|E)=P(H_j)P(E|H_j)/P(E)", "Independent: P(A∩B)=P(A)P(B)", "Mutually exclusive: P(A∩B)=0"]
+      },
+      {
+        module: "Discrete",
+        title: "Discrete Distributions",
+        trigger: "PMFs, quiz/demand/prize stories, Poisson process.",
+        formulas: ["Bin(n,p): μ=np, σ²=npq", "Geom(p): P(N=n)=(1-p)^{n-1}p", "Pois(λ): P(X=k)=e^{-λ}λ^k/k!", "If N(t)=n, N(s)|N(t)=n ~ Bin(n,s/t)", "M_X(t)=E(e^{tX})"]
+      },
+      {
+        module: "Continuous",
+        title: "Continuous Distributions",
+        trigger: "CDF/PDF, normal, gamma, CLT.",
+        formulas: ["F(x)=∫_{-∞}^{x}f(t)dt", "E[X]=∫x f(x)dx", "Gamma(α,β): μ=αβ, σ²=αβ²", "Z=(X-μ)/σ", "ΣX_i ≈ N(nμ,nσ²)"]
+      },
+      {
+        module: "Joint",
+        title: "Joint Distributions",
+        trigger: "Marginal, conditional, covariance, independence.",
+        formulas: ["∫∫ f(x,y) dxdy = 1", "f_X(x)=∫f(x,y)dy", "f_{X|Y}(x|y)=f(x,y)/f_Y(y)", "E[X|Y=y]=∫x f_{X|Y}(x|y)dx", "ρ=Cov(X,Y)/(σ_Xσ_Y)"]
+      },
+      {
+        module: "Estimation",
+        title: "Estimation",
+        trigger: "MLE, MoM, unbiasedness, estimator choice.",
+        formulas: ["L(θ)=Π f(x_i;θ)", "ℓ(θ)=Σ ln f(x_i;θ)", "∂ℓ/∂θ=0", "MoM: population moment = sample moment", "MSE(T)=Var(T)+Bias(T)²"]
+      },
+      {
+        module: "Inference",
+        title: "Confidence Intervals",
+        trigger: "Mean, proportion, variance, gamma scale.",
+        formulas: ["x̄ ± z_{α/2}σ/√n", "x̄ ± t_{α/2,n-1}s/√n", "p̂ ± z_{α/2}√(p̂q̂/n)", "((n-1)s²/χ²_{α/2}, (n-1)s²/χ²_{1-α/2})", "2ΣX_i/β ~ χ²(2nα)"]
+      },
+      {
+        module: "Inference",
+        title: "Hypothesis Testing",
+        trigger: "Claim, p-value, critical value, β, power.",
+        formulas: ["Z=(x̄-μ₀)/(σ/√n)", "T=(x̄-μ₀)/(s/√n)", "p-value two-tail = 2P(Z>|z_obs|)", "β(μ')=P(accept H0|μ=μ')", "n=((z_α+z_β)σ/δ)²"]
+      },
+      {
+        module: "Regression",
+        title: "Simple Linear Regression",
+        trigger: "x-y table and fitted line.",
+        formulas: ["Sxx=Σx²-nx̄²", "Syy=Σy²-nȳ²", "Sxy=Σxy-nx̄ȳ", "b=Sxy/Sxx; a=ȳ-bx̄", "SSE=Syy-bSxy; R²=bSxy/Syy"]
+      }
+    ];
+
+    const pyqs = [
+      ["Aug 2022", "Q1(a)", "Probability", "Distribution of m things among men/women; prove/disprove odd count probability formula.", "Use binomial expansion/parity split; state event A clearly.", "hard", 8],
+      ["Aug 2022", "Q1(b)", "Discrete", "Quiz with 4 true-false and 6 MCQ; probability exactly 2 correct.", "Sum over TF correct count and MCQ correct count combinations.", "medium", 4],
+      ["Aug 2022", "Q1(c)", "Discrete", "Biased die; binomial relation for even outcomes; expected number of zero-even sets.", "Solve p from P(4 evens)=3P(3 evens); compute 80000(1-p)^8.", "hard", 7],
+      ["Aug 2022", "Q2(a)", "Estimation", "Three-point distribution with unknown parameters; estimate by MoM using frequencies.", "Equate sample mean and second moment to population moments.", "hard", 12],
+      ["Aug 2022", "Q2(b)", "Estimation", "MLE for β in gamma-like pdf.", "Write likelihood, log, differentiate wrt β, substitute data.", "hard", 8],
+      ["Aug 2022", "Q3", "Regression", "Tannery waste data; scatter, regression line, variance estimate, probability at x=10.", "Use five-column regression table and normal model for final probability.", "medium", 20],
+      ["Aug 2022", "Q4", "Continuous", "Normal grade distribution cut-offs and grade identification.", "Convert grade percentages to normal quantiles.", "hard", 19],
+      ["Aug 2022", "Q5", "Joint", "Uniform over triangular region; correlation of transformed variables.", "Find region moments; use Corr(a+bX,c+dY)=sign(bd)Corr(X,Y).", "vhard", 19],
+      ["Aug 2022", "Q6", "Inference", "92% CI for mean ticket revenue; width/sample size variants.", "Use t for normal unknown σ, z/CLT for known σ large samples.", "medium", 11],
+      ["Aug 2022", "Q7", "Inference", "Proportion interval widths for driving license percentages.", "Use p̂ ± z√(p̂q̂/n); compare width dependence on p̂q̂.", "medium", 8],
+      ["Aug 2022", "Q8", "Inference", "Proportion test for equipment compatibility; p-value, β, sample size.", "Set one-sided claim, compute z, then OC/power algebra.", "hard", 19],
+      ["Jul 2023", "A-Q1", "Probability", "Two fair coins and one two-headed coin; head probability and posterior.", "Bayes with three equally likely coin choices.", "medium", 10],
+      ["Jul 2023", "A-Q2(i)", "Discrete", "50 MCQ score with 10 known and 40 guessed; PMF and mean.", "X=10+Y, Y~Bin(40,1/4).", "hard", 12],
+      ["Jul 2023", "A-Q2(ii)", "Discrete", "Solve Var(X), Var(Y) from Var(2X-Y) and Var(X+2Y).", "Use independence: Var(aX+bY)=a²VarX+b²VarY.", "medium", 4],
+      ["Jul 2023", "A-Q3", "Continuous", "Poisson process waiting time for fourth arrival; mean, SD, P(T<15).", "T~Gamma(4,10) under scale convention; integrate/use CDF.", "hard", 13],
+      ["Jul 2023", "A-Q4", "Regression", "Attendance vs marks regression; variance and R².", "Compute Sxx, Sxy, Syy; fit line and SSE.", "medium", 14],
+      ["Jul 2023", "A-Q5", "Joint", "Joint pdf kxy² on triangle x+y≤1; marginals, independence, E[Y|X=1/2].", "Draw triangle; integrate with variable limits.", "hard", 15],
+      ["Jul 2023", "A-Q6", "Discrete", "Demand distribution; PMF of T=(X1+X2)/2, E[T], P(T>2.5).", "Convolve two independent demand PMFs.", "medium", 8],
+      ["Jul 2023", "A-Q7", "Discrete", "Sum of independent Poisson variables.", "Use MGF or convolution to show Poisson(μ1+μ2).", "easy", 4],
+      ["Jul 2023", "B-Q1", "Estimation", "Unbiasedness and variance comparison of variance estimators.", "Use chi-square variance of sample variance and pooled-sample facts.", "hard", 13],
+      ["Jul 2023", "B-Q2(i)", "Inference", "Left endpoint of 95% CI for σ given; find sample SD and right endpoint.", "Invert chi-square CI for variance/SD.", "hard", 7],
+      ["Jul 2023", "B-Q2(ii)", "Estimation", "MLE for α and λ in gamma-type distribution.", "Log-likelihood in both parameters; use supplied derivative approximation.", "vhard", 8],
+      ["Jul 2023", "B-Q3", "Inference", "One-tailed z-test, Type-II error, sample size for power 0.80.", "Critical value under H0; compute β at μ=160; solve n.", "hard", 15],
+      ["Jul 2023", "B-Q4", "Inference", "Proportion p-value test for coffee-shop preference.", "One-sample proportion z-test using p0=0.70.", "medium", 12],
+      ["May 2024", "A-Q1(a)", "Probability", "Ball-transfer urn probability by Bayes.", "Condition on transferred composition; apply Bayes after white draw.", "medium", 7],
+      ["May 2024", "A-Q1(b)", "Regression", "Insurance premium vs driving experience; regression line, variance, R².", "Five-column table; negative slope expected.", "medium", 12],
+      ["May 2024", "A-Q2(a)", "Discrete", "Coin selected from fair/two-tailed envelope; trials until first head.", "Mixture stopping-time distribution; compute E[N] and Var[N].", "hard", 5],
+      ["May 2024", "A-Q2(b)", "Discrete", "Poisson process bank arrivals; conditional probability before 10 AM.", "Given n by 1 PM, count before 10 AM is Bin(n,1/4).", "hard", 14],
+      ["May 2024", "A-Q3(a)", "Continuous", "PDF to CDF; E[X], σ, probability within two SDs.", "Integrate polynomial pdf on (0,1).", "medium", 11],
+      ["May 2024", "A-Q3(b)", "Continuous", "Normal rainfall; exceedance, binomial over years, central 95% interval.", "Normal tail then Bin(4,p), then z0.025 interval.", "medium", 8],
+      ["May 2024", "A-Q4(a)", "Probability", "Prove/disprove X^n and Y^m independent for independent non-negative RVs.", "Use transformation events and independence of X,Y.", "hard", 6],
+      ["May 2024", "A-Q4(b)", "Joint", "U=max(X,Y), V=min(X,Y) for Uniform(0,1); moments and covariance.", "Use U+V=X+Y, UV=XY, and E(U-V)=1/3.", "vhard", 12],
+      ["May 2024", "B-Q1(a)", "Estimation", "MLE for probability a student is from Rajasthan using stopping counts.", "Geometric likelihood for first non-Rajasthan after counts 24,18,45.", "hard", 10],
+      ["May 2024", "B-Q1(b)", "Estimation", "MoM for β and unbiasedness of aΣY_i².", "Compute E[Y] or E[Y²] under given density.", "medium", 11],
+      ["May 2024", "B-Q2(a)", "Inference", "95% t-CI for gasoline mileage and sample size for 99% width 0.60.", "Use t for sample data, z planning formula for width.", "medium", 13],
+      ["May 2024", "B-Q2(b)", "Inference", "98% CI for vaccine discomfort proportion.", "p̂=100/400; z0.01=2.326.", "easy", 7],
+      ["May 2024", "B-Q3(a)", "Inference", "Proportion HT: rice vs wheat equally popular at 1%.", "Two-tailed test p0=0.5, n=1000, x=540.", "medium", 8],
+      ["May 2024", "B-Q3(b)", "Inference", "Custom rejection region weighted sum; Type-I error and power at μ=1.", "Find distribution of ΣiX_i with weights 1..10.", "vhard", 11],
+      ["Dec 2024", "Q1", "Probability", "Mutually exclusive versus independent proof/counterexample.", "Use definitions and non-zero probabilities to separate concepts.", "hard", 16],
+      ["Dec 2024", "Q2", "Discrete", "Binomial n=400, p=0.1 mean and standard deviation.", "μ=np, σ=√npq.", "easy", 9],
+      ["Dec 2024", "Q3", "Continuous", "CDF and probability for pdf proportional to 1/x on [25,50].", "Integrate to log CDF, evaluate interval probability.", "medium", 8],
+      ["Dec 2024", "Q4", "Continuous", "Normal probability plus normal approximation to binomial.", "Standardise normal; use continuity correction for binomial.", "hard", 24],
+      ["Dec 2024", "Q5", "Joint", "Rectangular joint pdf kx³y³; marginals, independence, E[X|Y=1].", "Normalise on square; factorise for independence.", "medium", 18],
+      ["Dec 2024", "Q6", "Discrete", "MGF of finite-support PMF.", "Compute Σe^{tx}p(x), then derivatives if needed.", "medium", 8],
+      ["Dec 2024", "Q7", "Inference", "95% z-CI for mean with known σ.", "Use x̄ ± 1.96σ/√n.", "easy", 8],
+      ["Dec 2024", "Q8", "Inference", "Two-tailed test, p-value, conclusion comparison.", "Compute test statistic and p-value; compare to α.", "medium", 18],
+      ["Dec 2024", "Q9", "Regression", "Household income vs energy consumption regression line.", "Normal equations and regression table.", "medium", 14],
+      ["Dec 2024", "Q10", "Estimation", "MLE for β in gamma-like pdf x³/(6β⁴)e^{-x/β}.", "Recognise gamma shape 4; β_hat=x̄/4 by MLE.", "hard", 12],
+      ["May 2025", "Q1", "Probability", "Casino coin/card/die game; sample space, prize PMF, fair entry fee, posterior heads given jackpot.", "Build path tree and aggregate prize probabilities; fair fee is E[X].", "hard", 20],
+      ["May 2025", "Q2(a)", "Continuous", "Gamma daily bread consumption; stock-insufficient probability.", "P(excess > 1000) for Gamma(2,1000).", "medium", 9],
+      ["May 2025", "Q2(b)", "Joint", "Joint pdf x+y/3 on rectangle; E[X|Y=y].", "Find f_Y(y), conditional density, integrate x f_{X|Y}.", "hard", 10],
+      ["May 2025", "Q3", "Discrete", "64 guests pastry requirement; order quantity for 0.95 no-shortage probability.", "CLT for sum of iid discrete demands; solve n by normal quantile.", "hard", 19],
+      ["May 2025", "Q4", "Estimation", "MoM and MLE for p(x;θ)=(1-θ)²(x+1)θ^x.", "Use known series for expectation/log-likelihood; solve for θ.", "hard", 19],
+      ["May 2025", "Q5", "Inference", "Gamma drying-time data; CI for expected time and standard deviation.", "Use 2ΣX_i/β chi-square pivot; transform to mean and SD.", "vhard", 20],
+      ["May 2025", "Q6", "Inference", "Battery lifetime test; p-value, rejection region, β at μ=39, sample size.", "Left-tailed z-test with σ known; solve OC function.", "hard", 19],
+      ["May 2025", "Q7", "Regression", "Baby weight regression, R², probability week 3 weight < week 2.", "Fit line; compute R²; difference of independent normals for probability.", "hard", 19]
+    ];
+
+    const practicePapers = [
+      {
+        title: "Practice Paper 01",
+        date: "Practice Paper 01",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<p>A player plays a game that starts with a fair coin toss. Heads leads to rolling a fair six-sided die once. Tails leads to drawing one card from a well-shuffled deck of 52 cards plus one joker. The player receives Rs. 9000 for a die outcome 6 or the joker, Rs. 6000 for a die outcome 1 or an ace, Rs. 3000 for a die outcome 4 or a face card, and nothing otherwise.</p><ol><li>Describe the sample space and find the probability mass function of the prize amount X. [10]</li><li>Find the minimum entry fee for which the organiser has non-negative expected profit. [5]</li><li>Given that the jackpot was won, find the probability that the coin toss was Heads. [5]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>The daily consumption of bread in a hotel in excess of 2000 loaves follows a gamma distribution with shape parameter 2 and scale parameter 1000. The hotel stocks 3100 loaves each day. Find the probability that the stock is insufficient on a particular day. [9]</li><li>The joint density of X and Y is f(x,y) = x + y/3 for 0 &lt; x &lt; 1 and 0 &lt; y &lt; 2, and 0 otherwise. Find E(X | Y = y). [10]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>At a birthday party, 64 guests are invited. A guest may need 0, 1, 2, or 3 pastries with probabilities 1/2, 1/6, 1/6, and 1/6 respectively. Assume the requirements of different guests are independent.</p><ol><li>Find the mean and variance of the number of pastries required by one guest. [6]</li><li>Using a suitable approximation, find the minimum number of pastries that should be ordered so that the probability of no shortage is at least 0.95. [12]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>A newborn baby was weighed weekly. The ages x in weeks and weights y in ounces are:</p><table><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr><tr><th>y</th><td>119</td><td>141</td><td>144</td><td>149</td><td>150</td><td>158</td><td>161</td><td>166</td><td>170</td></tr></table><ol><li>Write the normal equations and find the estimated regression line of y on x. [8]</li><li>Find the coefficient of determination. [4]</li><li>Suppose the true regression line is y = 125 + 5.5x and σ = 10. Find the probability that the baby's weight at the end of week 3 is less than the weight at the end of week 2. [6]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>Let X have probability mass function p(x; θ) = (1 - θ)<sup>2</sup>(x + 1)θ<sup>x</sup>, x = 0, 1, 2, ..., where 0 &lt; θ &lt; 1.</p><ol><li>Based on a random sample of size n, derive a method of moments estimator of θ. [9]</li><li>Based on the same sample, derive the maximum likelihood estimator of θ. [11]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<p>The drying time, in hours, of a paint has a gamma distribution with shape parameter 3 and unknown scale parameter β. A random sample gives the values 7, 12, 8, 5, 9, and 15.</p><ol><li>Derive and compute a 90% confidence interval for the true mean drying time. [14]</li><li>Derive and compute a 95% confidence interval for the standard deviation of the drying time. [6]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A company claims that the average battery life is 40 hours. A sample of 100 batteries gives sample mean 39.1 hours. The population standard deviation is known to be 4 hours.</p><ol><li>State suitable null and alternative hypotheses. [2]</li><li>Find the test statistic and p-value. [4]</li><li>At significance level 0.01, find the rejection region and test the hypothesis. [5]</li><li>For what values of the sample mean will the test reject H<sub>0</sub> at level 0.01? [4]</li><li>Find the probability of Type-II error when μ = 39, and find n so that this probability is 0.40. [5]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 02",
+        date: "Practice Paper 02",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>An urn contains 3 white and 5 black balls. Four balls are transferred into an empty urn, and then one ball is drawn from the new urn and found to be white. Find the probability that exactly three of the transferred balls were white. [8]</li><li>An envelope contains two coins: one fair coin and one coin with tails on both sides. A coin is selected at random, tossed, and replaced until the first head appears. Let N be the number of trials required. Find E(N) and Var(N). [12]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<p>Customers arrive at a bank from 9 AM to 6 PM according to a Poisson process with rate α per hour.</p><ol><li>Given that n customers have arrived by 1 PM, find the probability that exactly k of them arrived before 10 AM. [10]</li><li>For α = 3 and n = 12, find the probability that 3 or fewer customers arrived before 10 AM given that 12 customers arrived by 1 PM. [5]</li><li>Find the expected number of arrivals between 2 PM and 4 PM. [4]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<ol><li>Suppose X has density f(x) = 72x<sup>2</sup>(1 - x), 0 &lt; x &lt; 1, and 0 otherwise. Find the CDF of X. [5]</li><li>Calculate E(X) and the standard deviation of X. [5]</li><li>Find the probability that X lies within two standard deviations of its mean. [4]</li><li>State clearly why Chebyshev's inequality is not the sharp method for the previous part. [4]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>A random sample of 10 drivers insured with a company gives the following driving experiences x in years and monthly premiums y in rupees:</p><table><tr><th>x</th><td>7</td><td>12</td><td>6</td><td>18</td><td>22</td><td>28</td><td>4</td><td>14</td><td>9</td><td>30</td></tr><tr><th>y</th><td>180</td><td>120</td><td>170</td><td>85</td><td>70</td><td>65</td><td>250</td><td>130</td><td>200</td><td>50</td></tr></table><ol><li>Write the normal equations and find the estimated regression line of y on x. [9]</li><li>Find a point estimate of variance. [5]</li><li>Find the coefficient of determination. [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<ol><li>Three students independently asked randomly chosen students where they were from until each found someone not from Rajasthan. They asked 24, 18, and 45 students respectively before finding such a student. Find the MLE of the probability that a randomly chosen student is from Rajasthan. [10]</li><li>Let Y<sub>1</sub>, ..., Y<sub>n</sub> be a random sample from density f(y; β) = (2/β)y exp(-y<sup>2</sup>/β), y &gt; 0, β &gt; 0. Use the method of moments to estimate β. [5]</li><li>Find the value of a for which T = aΣY<sub>i</sub><sup>2</sup> is an unbiased estimator of β. [5]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<ol><li>Gasoline mileage values for a newly designed SUV are 29, 16, 25, 23, 17, 29, 28, 25, 21, 24, 15, and 24. Compute a 95% confidence interval for the true average mileage, assuming normality. [10]</li><li>How large a sample size is required if the width of a 99% confidence interval is to be 0.60, using the sample standard deviation from part (i) as a planning estimate? [5]</li><li>In a sample of 400 vaccinated persons, 100 experienced discomfort. Construct a 98% confidence interval for the true proportion experiencing discomfort. [5]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<ol><li>In a sample of 1000 people, 540 are rice eaters and the remaining are wheat eaters. At the 1% level, test whether rice and wheat are equally popular in the society. [8]</li><li>Let X be normally distributed with unknown μ and variance 4. To test H<sub>0</sub>: μ = -1 against H<sub>1</sub>: μ &gt; -1 using a sample of size 10, the rejection region is x<sub>1</sub> + 2x<sub>2</sub> + ... + 10x<sub>10</sub> ≥ 0. Find the probability of Type-I error and the power when μ = 1. [12]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 03",
+        date: "Practice Paper 03",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>A box contains three coins: two fair coins and one coin with heads on both sides. A coin is selected at random and tossed once. Find the probability of getting a head. [6]</li><li>If a head is observed, find the probability that the two-headed coin was chosen. [5]</li><li>A student knows the answers to 12 of 50 multiple-choice questions and guesses the remaining questions, each with four options and one correct answer. If X is the total number of correct answers, find the PMF of X and E(X). [9]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>Monthly demand for watches has distribution: demand 1, 2, 3, 4 with probabilities 0.2, 0.3, 0.4, 0.1. Let X<sub>1</sub> and X<sub>2</sub> be independent demands in two months and T = (X<sub>1</sub> + X<sub>2</sub>)/2. Find the PMF of T. [7]</li><li>Find E(T) and P(T &gt; 2.5). [5]</li><li>Let X<sub>1</sub> and X<sub>2</sub> be independent Poisson random variables with means μ<sub>1</sub> and μ<sub>2</sub>. Find the distribution of X<sub>1</sub> + X<sub>2</sub>. [7]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>Let X and Y have joint density f(x,y) = kxy<sup>2</sup> for x ≥ 0, y ≥ 0, and x + y ≤ 1, and 0 otherwise.</p><ol><li>Find k. [3]</li><li>Find the marginal densities of X and Y. [7]</li><li>Determine whether X and Y are independent. [3]</li><li>Find E(Y | X = 1/2). [5]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>Marks in a course are normally distributed with mean 50 and standard deviation 15. It is observed that 6%, 12%, 18%, and 10% of the students received A, A-, B, and B- grades respectively. Also, 67% of students received C grade or above.</p><ol><li>Find the lowest possible mark for an A grade. [5]</li><li>If a student receives 60 marks, determine the grade. [4]</li><li>Find the maximum possible mark for a C grade. [5]</li><li>If only 0.5% of students fail, find the minimum mark for an E grade. [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>Let X be normal with unknown mean μ and unknown variance σ<sup>2</sup>. Two independent samples of sizes 10 and 15 have sample variances S<sub>1</sub><sup>2</sup> and S<sub>2</sub><sup>2</sup>. Let S<sup>2</sup> be the sample variance of the combined sample of size 25.</p><ol><li>Determine whether T = (9S<sub>1</sub><sup>2</sup> + 14S<sub>2</sub><sup>2</sup>)/23 is an unbiased estimator of σ<sup>2</sup>. [6]</li><li>Compare T and S<sup>2</sup> by variance and identify the preferable estimator. [14]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<ol><li>A pollster states that 4 is the left endpoint of a 95% two-sided confidence interval for the standard deviation of a normal population, based on a sample of size 31. Find the sample standard deviation and the right endpoint of the interval. [9]</li><li>For a random sample from density f(x; α, λ) = (1/Γ(λ))(λ/α)<sup>λ</sup> exp(-λx/α)x<sup>λ-1</sup>, x ≥ 0, α &gt; 0, λ &gt; 0, find the likelihood equations for the MLEs of α and λ. [11]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A car manufacturer tests stopping distance. The maximum allowable average stopping distance is 150 feet. A random sample of 30 cars gives sample mean 155 feet. The population standard deviation is known to be 10 feet, and stopping distances are normal.</p><ol><li>Formulate hypotheses and test at α = 0.05 whether the true mean exceeds 150. [7]</li><li>Find the probability of Type-II error when the true mean is 160. [6]</li><li>Find the sample size required for power 0.80 when the true mean is 160. [7]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 04",
+        date: "Practice Paper 04",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>Let A and B be events with P(A) &gt; 0 and P(B) &gt; 0. Prove that if A and B are mutually exclusive, they cannot be independent. [6]</li><li>Give an example of two events that are independent but not mutually exclusive. [5]</li><li>A biased die has probability p of showing an even number in one throw. The probability of getting four even numbers in eight throws is three times the probability of getting three even numbers. Find p and the expected number of sets with no even number among 80000 independent sets of eight throws. [9]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>X is binomial with n = 400 and p = 0.1. Find the mean and standard deviation. [5]</li><li>A call centre receives calls according to a Poisson process at rate 6 per hour. Find the density of the waiting time until the fifth call and its mean and standard deviation. [8]</li><li>Find the probability that the fifth call arrives within 30 minutes. [6]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<ol><li>Let X have density f(x) = 1/(x ln 2), 25 ≤ x ≤ 50. Find the CDF of X. [5]</li><li>Find P(30 &lt; X &lt; 40). [3]</li><li>Let Y be binomial with n = 200 and p = 0.1. Use normal approximation with continuity correction to find P(24 ≤ Y ≤ 30). [10]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>Household income x and monthly energy consumption y were recorded for 8 households:</p><table><tr><th>x</th><td>22</td><td>25</td><td>28</td><td>30</td><td>34</td><td>38</td><td>41</td><td>45</td></tr><tr><th>y</th><td>180</td><td>190</td><td>205</td><td>215</td><td>230</td><td>246</td><td>252</td><td>270</td></tr></table><ol><li>Find the estimated regression line of y on x. [9]</li><li>Find the point estimate of variance. [5]</li><li>Interpret the coefficient of determination. [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<ol><li>Let X have density f(x; β) = x<sup>3</sup> exp(-x/β)/(6β<sup>4</sup>), x ≥ 0, β &gt; 0. Find the MLE of β based on a random sample. [11]</li><li>Let X have PMF p(x; θ) = (1 - θ)θ<sup>x</sup>, x = 0, 1, 2, ..., 0 &lt; θ &lt; 1. Find a method of moments estimator of θ. [9]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<ol><li>A machine fills bottles with standard deviation 0.042 litres. A sample of 200 bottles has mean fill 0.824 litres. Construct a 95% confidence interval for the true mean fill. [8]</li><li>A random sample of 16 observations from a normal population has mean 42 and sample standard deviation 5. Construct a 99% confidence interval for the mean. [6]</li><li>A sample of 50 components has sample variance 9. Construct a 95% confidence interval for the population variance, assuming normality. [6]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A manufacturer claims that the average life of a component is 9.5 years. A sample of 50 components gives sample mean 9.8 and sample standard deviation 1.2.</p><ol><li>Set up a two-tailed test at α = 0.05 and state the critical values. [5]</li><li>Test the claim using the critical value approach. [5]</li><li>Find the p-value and compare the conclusion with part (ii). [5]</li><li>State one assumption needed for the validity of the procedure. [5]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 05",
+        date: "Practice Paper 05",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>A supplier uses plants P<sub>1</sub>, P<sub>2</sub>, and P<sub>3</sub> to produce 30%, 20%, and 50% of items. Their defect probabilities are 0.01, 0.03, and 0.02. If a randomly selected item is defective, find the probability it came from each plant. [10]</li><li>A lot contains 12 items, 4 defective and 8 good. Three items are selected without replacement. Let X be the number of defective items selected. Find the PMF and E(X). [10]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>The number of claims received by an insurer in a day is Poisson with mean 2.4. Find the probability that at least 3 claims are received in a day. [5]</li><li>Using a suitable approximation, find the probability that in 100 days the total number of claims exceeds 260. [8]</li><li>If claims in disjoint days are independent, find the MGF of the total number of claims in 5 days. [6]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>Let X and Y be independent uniform random variables on [0,1]. Define U = max(X,Y) and V = min(X,Y). Suppose E(U - V) = 1/3.</p><ol><li>Compute E(U + V). [4]</li><li>Compute E(UV). [5]</li><li>Compute Cov(U,V). [5]</li><li>State whether U and V are independent, with justification. [4]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>The following data record solids reduction x and oxygen demand reduction y in percent:</p><table><tr><th>x</th><td>3</td><td>7</td><td>10</td><td>15</td><td>15</td><td>4</td></tr><tr><th>y</th><td>3</td><td>11</td><td>20</td><td>25</td><td>28</td><td>9</td></tr></table><ol><li>Does a simple linear regression model appear suitable? Briefly justify. [3]</li><li>Find the estimated regression line. [8]</li><li>Calculate a point estimate of σ<sup>2</sup>. [4]</li><li>If the true regression line is y = 1.875x - 0.55 and σ<sup>2</sup> = 4.41, compute P(Y &lt; 14) when x = 10. [3]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>A random variable X takes values 0, 1, and 2 with probabilities (1 - θ)(1 - ψ)/4, (1 + θ)/2, and (1 - θ)(1 + ψ)/4 respectively, where θ and ψ are unknown. In 100 observations, the frequencies of 0, 1, and 2 are 24, 52, and 24.</p><ol><li>Find the method of moments estimators of θ and ψ. [12]</li><li>Comment on whether the estimates are admissible parameter values. [3]</li><li>Find the sample mean and sample second moment used in the calculation. [5]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<p>A sample of 25 theatres has mean weekend ticket revenue Rs. 10905 and sample standard deviation Rs. 3962.11. Assume normality.</p><ol><li>Construct a 92% confidence interval for the mean revenue per theatre and interpret it. [8]</li><li>Would a sample size of 15 with the same sample standard deviation produce a 92% confidence interval of width 2000? Justify. [6]</li><li>If σ = 4000 and n is to be more than 40, find the minimum n so that the margin of error for a 92% confidence interval is at most 1000. [6]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A new network is claimed to be incompatible with 96% of equipment already in use. In a sample of 400 pieces of equipment, 390 are found incompatible.</p><ol><li>State suitable hypotheses to support the claim. [3]</li><li>At the 0.04 level, test the hypothesis using the critical value approach. [6]</li><li>Can H<sub>0</sub> be rejected at the 0.10 level? Justify using a p-value. [5]</li><li>If the true incompatibility proportion is 0.97 and n = 100, find the probability that H<sub>0</sub> is not rejected at significance level 0.02. [6]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 06",
+        date: "Practice Paper 06",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>A batch has 5 red, 4 blue, and 3 green balls. Two balls are drawn without replacement. Let X be the number of red balls drawn. Find the PMF, E(X), and Var(X). [8]</li><li>A medical test has sensitivity 0.96 and specificity 0.92. If 3% of a population has the disease, find the probability that a person with a positive test actually has the disease. [8]</li><li>Explain why the answer in part (ii) can be small even when the test is accurate. [4]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<p>The number of misprints on a page follows a Poisson distribution with mean 0.3.</p><ol><li>Find the probability that a page has no misprint. [4]</li><li>Find the probability that a 10-page article has at most two misprints. [6]</li><li>Using a normal approximation, estimate the probability that 200 pages contain more than 70 misprints. [9]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>A continuous random variable X has density f(x) = cx(2 - x), 0 &lt; x &lt; 2.</p><ol><li>Find c. [4]</li><li>Find the CDF of X. [5]</li><li>Find E(X) and Var(X). [5]</li><li>Find P(0.5 &lt; X &lt; 1.5). [4]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>The following data give advertising expenditure x and sales y:</p><table><tr><th>x</th><td>4</td><td>6</td><td>7</td><td>9</td><td>10</td><td>12</td><td>13</td><td>15</td></tr><tr><th>y</th><td>38</td><td>44</td><td>46</td><td>53</td><td>58</td><td>63</td><td>66</td><td>72</td></tr></table><ol><li>Fit a simple linear regression line of y on x. [9]</li><li>Estimate σ<sup>2</sup>. [5]</li><li>Find and interpret R<sup>2</sup>. [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>Let X<sub>1</sub>, ..., X<sub>n</sub> be a random sample from density f(x; θ) = θx<sup>θ-1</sup>, 0 &lt; x &lt; 1, θ &gt; 0.</p><ol><li>Find the method of moments estimator of θ. [8]</li><li>Find the maximum likelihood estimator of θ. [8]</li><li>State whether the likelihood has an interior maximum and justify. [4]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<ol><li>A random sample of 64 observations from a population with known σ = 12 has sample mean 102. Construct a 98% confidence interval for the population mean. [6]</li><li>A sample of 20 observations from a normal population has sample mean 15.4 and sample standard deviation 3.2. Construct a 95% confidence interval for the mean. [7]</li><li>A sample of 250 voters has 140 supporting a proposal. Construct a 90% confidence interval for the true support proportion. [7]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A cereal company claims that the average fill weight is 500 grams. A sample of 36 boxes has mean 496 grams. The population standard deviation is 12 grams.</p><ol><li>Test at α = 0.05 whether the mean fill weight is less than 500 grams. [7]</li><li>Compute the p-value. [4]</li><li>Find the probability of Type-II error when the true mean is 494 grams. [5]</li><li>Find the sample size required for power 0.90 at μ = 494. [4]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 07",
+        date: "Practice Paper 07",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>Two machines M<sub>1</sub> and M<sub>2</sub> produce 60% and 40% of bolts respectively. Their defect rates are 2% and 5%. A bolt is chosen at random and found defective. Find the probability it came from M<sub>2</sub>. [7]</li><li>Three independent components have lifetimes that exceed one year with probabilities 0.8, 0.7, and 0.9. Let X be the number of components lasting more than one year. Find the PMF and E(X). [8]</li><li>State whether the events "component 1 lasts" and "exactly two components last" are independent. [5]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>A fair die is thrown 300 times. Use a normal approximation to estimate the probability that the number of sixes is between 40 and 60 inclusive. [8]</li><li>In a Poisson process with rate 2 per hour, find the distribution of the waiting time until the third event and compute P(T &lt; 1). [7]</li><li>State the MGF of a Poisson random variable with mean λ. [4]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>Let X and Y have joint density f(x,y) = k(x + 2y) on 0 &lt; x &lt; 1, 0 &lt; y &lt; 1.</p><ol><li>Find k. [4]</li><li>Find f<sub>X</sub>(x) and f<sub>Y</sub>(y). [6]</li><li>Determine whether X and Y are independent. [3]</li><li>Find E(X | Y = y). [5]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>A machine part diameter X is normally distributed with mean 10 mm and standard deviation 0.08 mm.</p><ol><li>Find P(9.90 &lt; X &lt; 10.12). [5]</li><li>Find c such that P(10 - c &lt; X &lt; 10 + c) = 0.99. [5]</li><li>If 5 parts are selected independently, find the probability exactly 4 have diameters between 9.90 and 10.12. [4]</li><li>Explain what changes if σ is estimated from a small normal sample. [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>The lifetimes X<sub>1</sub>, ..., X<sub>n</sub> of devices follow an exponential distribution with mean θ.</p><ol><li>Find the MLE of θ. [7]</li><li>Find the method of moments estimator of θ. [5]</li><li>Show that the sample mean is unbiased for θ. [4]</li><li>Find the variance of the estimator in part (ii). [4]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<p>Pollution concentration readings from 9 locations are 18, 21, 19, 25, 22, 20, 24, 23, and 26. Assume the population is normal.</p><ol><li>Construct a 95% confidence interval for the mean concentration. [8]</li><li>Construct a 95% confidence interval for the population variance. [7]</li><li>If the desired margin of error for a 99% mean interval is 2 units, find the required sample size using the sample standard deviation as a planning estimate. [5]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A website owner claims that more than 70% of users prefer a new interface. In a random sample of 80 users, 54 prefer the new interface.</p><ol><li>Set up the hypotheses. [3]</li><li>Test the claim at α = 0.06 using the p-value approach. [7]</li><li>Find the rejection region for the same test. [5]</li><li>Explain whether the conclusion supports the owner's claim. [5]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 08",
+        date: "Practice Paper 08",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>In a batch of 15 chips, 5 are defective. Four chips are selected without replacement. Find the probability that exactly two are defective. [5]</li><li>A diagnostic lab receives samples from centres A, B, and C in proportions 0.5, 0.3, and 0.2. The probability of a delayed report is 0.04, 0.06, and 0.10 respectively. If a report is delayed, find the probability it came from centre C. [8]</li><li>Let A and B be independent events with P(A) = 0.4 and P(B) = 0.5. Find P(A ∪ B), P(A | B), and P(A<sup>c</sup> ∩ B). [7]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<p>A store's daily demand D has distribution:</p><table><tr><th>D</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td></tr><tr><th>P(D)</th><td>0.10</td><td>0.20</td><td>0.35</td><td>0.25</td><td>0.10</td></tr></table><ol><li>Find E(D) and Var(D). [6]</li><li>If demands over 81 days are independent, use the CLT to estimate the probability that total demand exceeds 190. [8]</li><li>Find the MGF of D. [5]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<ol><li>A rainfall amount X is normally distributed with μ = 40 and σ = 4. Find P(X &gt; 50). [4]</li><li>Find the probability that in exactly two of four independent years, rainfall exceeds 50. [4]</li><li>Find k such that 95% of annual rainfall lies in (40 - k, 40 + k). [5]</li><li>State the distribution used in part (ii). [5]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>Let X and Y be non-negative independent random variables. Let m and n be positive integers.</p><ol><li>Prove or disprove that X<sup>n</sup> and Y<sup>m</sup> are independent. [8]</li><li>If X and Y are independent Poisson variables with means 2 and 3, find the MGF of X + Y and identify its distribution. [6]</li><li>Find E(X + Y) and Var(X + Y). [4]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>A sample X<sub>1</sub>, ..., X<sub>n</sub> comes from density f(x; θ) = 2x/θ<sup>2</sup>, 0 &lt; x &lt; θ, θ &gt; 0.</p><ol><li>Find a method of moments estimator of θ. [7]</li><li>Find the maximum likelihood estimator of θ. [8]</li><li>Compare the two estimators qualitatively in terms of dependence on the sample maximum. [5]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<ol><li>A random sample of size 100 has sample mean 18.2 and known σ = 5. Construct a 90% confidence interval for the mean. [5]</li><li>A sample of 12 observations from a normal population has sample mean 31 and sample standard deviation 4. Construct a 98% confidence interval for the mean. [7]</li><li>A sample of 500 people has 125 using a service. Construct a 95% confidence interval for the true usage proportion. [5]</li><li>Which interval in this question uses the t distribution, and why? [3]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A factory wants to test whether the defect proportion is below 0.08. In a sample of 400 items, 24 are defective.</p><ol><li>State the hypotheses. [3]</li><li>Test at the 5% level. [6]</li><li>Find the p-value. [4]</li><li>If the true defect proportion is 0.05, approximate the probability of Type-II error for this test. [7]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 09",
+        date: "Practice Paper 09",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>A fair coin is tossed. If Heads occurs, a fair die is rolled; if Tails occurs, a card is drawn from a standard deck. Define X as 1 for a die outcome greater than 4 or a red card, and 0 otherwise. Find the PMF of X and E(X). [8]</li><li>Given X = 1, find the probability that the initial coin toss was Tails. [6]</li><li>If the game pays Rs. 100 for X = 1 and Rs. 0 otherwise, find the fair entry fee. [6]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<ol><li>A machine produces defective items with probability 0.04 independently. Use a Poisson approximation to estimate the probability that at most 3 defectives occur in 100 items. [6]</li><li>Use a normal approximation to estimate the probability that between 30 and 50 defectives occur in 1000 items. [8]</li><li>State which approximation is more suitable for each part and why. [5]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>The joint density of X and Y is f(x,y) = kx<sup>2</sup>y for 0 &lt; y &lt; x &lt; 1.</p><ol><li>Find k. [4]</li><li>Find f<sub>X</sub>(x). [5]</li><li>Find f<sub>Y</sub>(y). [5]</li><li>Find P(Y &lt; X/2). [4]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>Temperature x and electricity demand y for 9 days are:</p><table><tr><th>x</th><td>28</td><td>30</td><td>32</td><td>33</td><td>35</td><td>36</td><td>38</td><td>40</td><td>42</td></tr><tr><th>y</th><td>210</td><td>218</td><td>226</td><td>229</td><td>240</td><td>244</td><td>255</td><td>263</td><td>272</td></tr></table><ol><li>Fit the estimated regression line of y on x. [9]</li><li>Find R<sup>2</sup>. [4]</li><li>Estimate σ<sup>2</sup>. [5]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>Let X have PMF p(x; θ) = (1 - θ)xθ<sup>x-1</sup>, x = 1, 2, 3, ..., 0 &lt; θ &lt; 1.</p><ol><li>Find E(X) using the given PMF or known series. [5]</li><li>Find the method of moments estimator of θ. [7]</li><li>Find the maximum likelihood estimator of θ. [8]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<p>The time to complete a task has gamma distribution with shape 4 and unknown scale β. A random sample of 8 times has total 96 minutes.</p><ol><li>Find a 95% confidence interval for β using a chi-square pivot. [10]</li><li>Convert this to a confidence interval for the true mean task time. [5]</li><li>Find the MLE of β. [5]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A university claims that the mean time spent on self-study is 20 hours per week. A sample of 49 students has mean 18.9 hours. The population standard deviation is known to be 4.9 hours.</p><ol><li>Test at α = 0.05 whether the mean is less than 20. [6]</li><li>Compute the p-value. [4]</li><li>Find β when the true mean is 18.5. [5]</li><li>Find n for power 0.85 at true mean 18.5. [5]</li></ol>` }
+        ]
+      },
+      {
+        title: "Practice Paper 10",
+        date: "Practice Paper 10",
+        partA: [
+          { n: "Q1.", marks: 20, html: `<ol><li>A hostel mess serves either meal A or meal B. A student chooses meal A with probability 0.55. If meal A is chosen, the probability of rating it good is 0.80; for meal B this probability is 0.70. If a randomly chosen student rated the meal good, find the probability the student chose meal A. [7]</li><li>In a class of 60 students, each independently attends a tutorial with probability 0.75. Use a suitable approximation to find the probability that at least 50 attend. [7]</li><li>State the exact distribution before approximation and include the continuity correction. [6]</li></ol>` },
+          { n: "Q2.", marks: 19, html: `<p>A random variable X has PMF:</p><table><tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><th>P(X=x)</th><td>0.15</td><td>0.35</td><td>0.30</td><td>0.20</td></tr></table><ol><li>Find E(X), Var(X), and the MGF of X. [7]</li><li>If X<sub>1</sub>, ..., X<sub>100</sub> are independent copies of X, approximate P(ΣX<sub>i</sub> &gt; 180). [8]</li><li>Find P(X<sub>1</sub> + X<sub>2</sub> = 4). [4]</li></ol>` },
+          { n: "Q3.", marks: 18, html: `<p>Let X have density f(x) = c exp(-x/2), x &gt; 0.</p><ol><li>Find c and the CDF of X. [5]</li><li>Find P(X &gt; 5). [4]</li><li>Find E(X) and Var(X). [5]</li><li>Identify the distribution and its scale parameter. [4]</li></ol>` },
+          { n: "Q4.", marks: 18, html: `<p>Let X and Y have joint density f(x,y) = k on the triangular region bounded by y = 0, x = 3, and y = x/2.</p><ol><li>Find k. [4]</li><li>Find E(X), E(Y), and E(XY). [8]</li><li>Find the correlation coefficient between 2 - 3X and 3 + 2Y. [6]</li></ol>` }
+        ],
+        partB: [
+          { n: "Q1.", marks: 20, html: `<p>Let X<sub>1</sub>, ..., X<sub>n</sub> be a random sample from density f(x; β) = x exp(-x/β)/β<sup>2</sup>, x &gt; 0, β &gt; 0.</p><ol><li>Find the MLE of β. [8]</li><li>Find the method of moments estimator of β. [6]</li><li>Find a constant a such that aΣX<sub>i</sub> is unbiased for β. [6]</li></ol>` },
+          { n: "Q2.", marks: 20, html: `<p>Concrete strength measurements from 10 specimens are 31, 29, 35, 33, 30, 34, 36, 32, 31, and 37. Assume normality.</p><ol><li>Construct a 95% confidence interval for the mean strength. [8]</li><li>Construct a 90% confidence interval for the standard deviation. [7]</li><li>Find the sample size required for a 95% confidence interval for the mean with margin of error at most 1.5, using the sample standard deviation as a planning estimate. [5]</li></ol>` },
+          { n: "Q3.", marks: 20, html: `<p>A service centre claims that the average waiting time is at most 12 minutes. A sample of 64 customers gives mean 13.1 minutes. The population standard deviation is known to be 4 minutes.</p><ol><li>Set up the hypotheses for testing the claim. [3]</li><li>Test at the 1% level. [6]</li><li>Find the p-value. [4]</li><li>Find the probability of Type-II error when the true mean is 14 minutes. [4]</li><li>Find the rejection region in terms of the sample mean. [3]</li></ol>` }
+        ]
+      }
+    ];
+
+    const checklist = [
+      ["Regression", ["Build a complete x,y,x²,y²,xy table in under 18 minutes.", "Derive a and b from Sxx/Sxy, then verify line passes through (x̄,ȳ).", "Compute SSE, s², and R² without expanding residuals one by one.", "Solve one regression probability question using a normal difference."]],
+      ["Inference", ["Select z/t/χ²/proportion interval from wording alone.", "Write H0/H1 correctly for one-tailed and two-tailed claims.", "Compute p-value and rejection-region conclusion for the same test.", "Compute β at an alternative value and solve one sample-size-for-power problem."]],
+      ["Estimation", ["Write likelihood and log-likelihood for a custom pdf.", "Do one MLE with parameter constraints 0<θ<1.", "Do one MoM using E[X]=x̄ and one using E[X²].", "Prove unbiasedness by taking expectation of the estimator."]],
+      ["Joint Distributions", ["Draw the support before integrating.", "Find k and marginals for one rectangle and one triangle.", "Test independence using f_XY=f_Xf_Y.", "Compute E[X|Y=y] or E[Y|X=x] from conditional density."]],
+      ["Continuous", ["Derive a CDF from a pdf with support cases.", "Apply normal approximation with continuity correction.", "Use Gamma(α,β) mean/variance and chi-square pivot.", "Solve a CLT sum problem where the target probability is given."]],
+      ["Discrete / Probability", ["Construct a PMF from a multi-branch story.", "Use Bayes with at least three hypotheses.", "Use conditional Poisson count as Binomial.", "Write the independence versus mutual exclusivity proof cleanly."]]
+    ];
+
+    let activeModule = "All";
+
+    function slug(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function renderBars() {
+      const max = Math.max(...moduleMarks.map(([, marks]) => marks));
+      document.getElementById("bars").innerHTML = moduleMarks.map(([name, marks]) => `
+        <div class="bar-row">
+          <div class="bar-name">${name}</div>
+          <div class="bar-track"><div class="bar-fill" style="--w:${Math.round((marks / max) * 100)}%;--c:${moduleColors[name]}"></div></div>
+          <div class="bar-marks">${marks}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderFilters() {
+      const names = ["All", ...moduleMarks.map(([name]) => name)];
+      document.getElementById("moduleFilters").innerHTML = names.map(name => `
+        <button class="filter-btn ${name === activeModule ? "active" : ""}" type="button" data-filter="${name}">${name}</button>
+      `).join("");
+      document.querySelectorAll("[data-filter]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          activeModule = btn.dataset.filter;
+          renderFilters();
+          applyFilters();
+        });
+      });
+    }
+
+    function tagClass(tag) {
+      if (tag === "MUST" || tag === "TOP END") return "must";
+      if (tag === "HIGH") return "high";
+      if (tag.includes("marks")) return "blue";
+      return "clean";
+    }
+
+    function renderArchetypes() {
+      document.getElementById("archetypes").innerHTML = archetypes.map(item => `
+        <article class="archetype-card searchable" data-module="${item.module}">
+          <h3>${item.title}</h3>
+          <div class="tag-row">
+            <span class="tag" style="background:${moduleColors[item.module]};color:white">${item.module}</span>
+            ${item.tags.map(tag => `<span class="tag ${tagClass(tag)}">${tag}</span>`).join("")}
+          </div>
+          <p><strong>Trigger:</strong> ${item.trigger}</p>
+          <div class="route"><b>Answer route:</b> ${item.route}</div>
+          <div class="route"><b>Trap:</b> ${item.trap}</div>
+          <details>
+            <summary>PYQ anchors</summary>
+            <p>${item.anchors}</p>
+          </details>
+        </article>
+      `).join("");
+    }
+
+    function renderModules() {
+      document.getElementById("moduleCards").innerHTML = modules.map(item => `
+        <article class="module-card searchable" data-module="${item.name}">
+          <div>
+            <h3>${item.name}</h3>
+            <p>${item.verdict}</p>
+          </div>
+          <div class="module-meta">
+            <div class="mini-stat"><b>${item.marks}</b><span>exposure index</span></div>
+            <div class="mini-stat"><b>${item.priority}</b><span>preparation priority</span></div>
+            <div class="mini-stat"><b>${item.certainty}</b><span>appearance pattern</span></div>
+          </div>
+          <div class="module-sections">
+            <div class="module-block">
+              <strong>Must Write</strong>
+              <ul>${item.mustWrite.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+            <div class="module-block">
+              <strong>Formula Spine</strong>
+              <ul>${item.formulas.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+            <div class="module-block">
+              <strong>Drills</strong>
+              <ul>${item.drills.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+            <div class="module-block">
+              <strong>PYQ Anchors</strong>
+              <ul>${item.pyq.map(x => `<li>${x}</li>`).join("")}</ul>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderFormulaBank() {
+      document.getElementById("formulaBank").innerHTML = formulaGroups.map(group => `
+        <article class="formula-card searchable" data-module="${group.module}">
+          <h3>${group.title}</h3>
+          <div class="tag-row"><span class="tag" style="background:${moduleColors[group.module]};color:white">${group.module}</span></div>
+          <p>${group.trigger}</p>
+          ${group.formulas.map(f => `<code class="formula">${f}</code>`).join("")}
+        </article>
+      `).join("");
+    }
+
+    function levelLabel(level) {
+      const labels = { easy: "Easy", medium: "Medium", hard: "Hard", vhard: "Very hard" };
+      return labels[level] || level;
+    }
+
+    function renderPyqs() {
+      document.getElementById("pyqRows").innerHTML = pyqs.map(row => {
+        const [year, q, module, task, route, level, marks] = row;
+        return `
+          <tr class="searchable" data-module="${module}">
+            <td>${year}</td>
+            <td>${q}</td>
+            <td><span class="tag" style="background:${moduleColors[module]};color:white">${module}</span></td>
+            <td>${task}</td>
+            <td>${route}</td>
+            <td><span class="level ${level}">${levelLabel(level)}</span></td>
+            <td class="marks">${marks}</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function applyFilters() {
+      const query = document.getElementById("globalSearch").value.trim().toLowerCase();
+      document.querySelectorAll(".searchable").forEach(el => {
+        const moduleMatch = activeModule === "All" || el.dataset.module === activeModule;
+        const textMatch = !query || el.textContent.toLowerCase().includes(query);
+        el.classList.toggle("hidden", !(moduleMatch && textMatch));
+      });
+    }
+
+    function renderQuestion(question) {
+      return `
+        <div class="question-block">
+          <div class="q-label">${question.n}</div>
+          <div class="q-body">${question.html}</div>
+          <div class="q-marks-box">[${question.marks}]</div>
+        </div>
+      `;
+    }
+
+    function renderPaper(paper, index) {
+      const paperNumber = String(index + 1).padStart(2, "0");
+      return `
+        <article class="exam-paper ${index === 0 ? "" : "hidden-paper"}" data-paper="${index}">
+          <div class="exam-header">
+            <div class="inst">BITS Pilani · Practice Question Paper</div>
+            <div>Probability and Statistics</div>
+            <div class="course">MATH F113 (Probability and Statistics)</div>
+            <div>Comprehensive Exam Practice (Open Book Format)</div>
+          </div>
+          <div class="exam-line">
+            <span>Date: ${paper.date}</span>
+            <span>Maximum Duration: 180 min (03:00 - 06:00 pm)</span>
+            <span>Maximum Marks: 135</span>
+          </div>
+          <div class="part-title">Part A</div>
+          <ol class="exam-instructions">
+            <li>Calculators are allowed. Do all calculations up to at least 4 decimal places.</li>
+            <li>Part A and Part B are to be answered in separate answer sheets. Write the respective part on the top of the cover page of the answer sheet.</li>
+            <li>There are 4 questions in Part A. The maximum duration for Part A is 105 minutes and the maximum marks for Part A is 75.</li>
+            <li>Answer all parts of a question consecutively. Answer each question on a new page.</li>
+            <li>Do not submit multiple solutions to any question. Strike out any solution which should not be graded. Otherwise, only the first attempt will be graded.</li>
+            <li>Define events/random variables with distribution and parameters as and when required.</li>
+            <li>Notations and symbols have their usual meaning.</li>
+            <li>While answering, write all the steps with proper justification. Just writing the correct answer will receive no credit. Assumptions made, if any, should be stated clearly at the beginning.</li>
+          </ol>
+          ${paper.partA.map(renderQuestion).join("")}
+          <div class="part-title">End of Part A</div>
+          <div class="part-title">Part B</div>
+          <ol class="exam-instructions">
+            <li>There are 3 questions in Part B. The maximum marks for Part B is 60.</li>
+            <li>Answer all parts of a question consecutively. Answer each question on a new page.</li>
+            <li>Define events/random variables with distribution and parameters as and when required.</li>
+            <li>While answering, write all the steps with proper justification. Just writing the correct answer will receive no credit.</li>
+          </ol>
+          ${paper.partB.map(renderQuestion).join("")}
+          <div class="exam-end">END OF PRACTICE PAPER ${paperNumber}</div>
+        </article>
+      `;
+    }
+
+    function showPaper(index) {
+      document.querySelectorAll(".exam-paper").forEach(paper => {
+        paper.classList.toggle("hidden-paper", paper.dataset.paper !== String(index));
+      });
+      document.querySelectorAll(".paper-tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.paperTab === String(index));
+      });
+    }
+
+    function showAllPapers() {
+      document.querySelectorAll(".exam-paper").forEach(paper => paper.classList.remove("hidden-paper"));
+      document.querySelectorAll(".paper-tab").forEach(tab => tab.classList.remove("active"));
+    }
+
+    function renderPracticePapers() {
+      document.getElementById("paperTabs").innerHTML = practicePapers.map((paper, index) => `
+        <button class="filter-btn paper-tab ${index === 0 ? "active" : ""}" type="button" data-paper-tab="${index}" onclick="showPaper(${index})">${paper.title}</button>
+      `).join("");
+      document.getElementById("papersStack").innerHTML = practicePapers.map(renderPaper).join("");
+    }
+
+    function renderChecklist() {
+      document.getElementById("checklistGrid").innerHTML = checklist.map(([group, items], groupIndex) => `
+        <article class="check-card searchable" data-module="${group.includes("Discrete") ? "Discrete" : group}">
+          <h3>${group}</h3>
+          ${items.map((item, itemIndex) => {
+            const id = `check-${groupIndex}-${itemIndex}`;
+            return `
+              <label class="check-item" for="${id}">
+                <input id="${id}" type="checkbox" data-check-id="${id}">
+                <span>${item}</span>
+              </label>
+            `;
+          }).join("")}
+        </article>
+      `).join("");
+
+      document.querySelectorAll("[data-check-id]").forEach(input => {
+        input.checked = localStorage.getItem(input.dataset.checkId) === "1";
+        input.addEventListener("change", () => {
+          localStorage.setItem(input.dataset.checkId, input.checked ? "1" : "0");
+          updateProgress();
+        });
+      });
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const boxes = Array.from(document.querySelectorAll("[data-check-id]"));
+      const done = boxes.filter(box => box.checked).length;
+      const total = boxes.length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById("progressBar").style.setProperty("--progress", pct + "%");
+      document.getElementById("progressText").textContent = `${done} of ${total} done (${pct}%).`;
+    }
+
+    function resetChecklist() {
+      document.querySelectorAll("[data-check-id]").forEach(input => {
+        input.checked = false;
+        localStorage.removeItem(input.dataset.checkId);
+      });
+      updateProgress();
+    }
+
+    function init() {
+      renderBars();
+      renderFilters();
+      renderArchetypes();
+      renderModules();
+      renderFormulaBank();
+      renderPyqs();
+      renderPracticePapers();
+      renderChecklist();
+      document.getElementById("globalSearch").addEventListener("input", applyFilters);
+    }
+
+    init();
+  </script>
+</body>
+</html>
