@@ -696,6 +696,16 @@
       margin-top: 10px;
     }
 
+    .rkb-credit {
+      margin-top: 22px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(18,19,20,0.12);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid rgba(18,19,20,0.12);
@@ -910,10 +920,87 @@
       letter-spacing: 0.08em;
     }
 
+    .paper-credit {
+      margin-top: 18px;
+      text-align: right;
+      color: #5e625d;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
     .source-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
+    }
+
+    .source-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .source-panel {
+      border: 1px solid rgba(18,19,20,0.12);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .source-panel h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 21px;
+      line-height: 1.12;
+    }
+
+    .source-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .source-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      border: 1px solid rgba(18,19,20,0.16);
+      border-radius: 999px;
+      background: var(--navy);
+      color: white;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .source-action.secondary {
+      background: var(--surface);
+      color: var(--navy);
+    }
+
+    .page-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .page-links a {
+      border: 1px solid rgba(18,19,20,0.12);
+      border-radius: 999px;
+      background: #f5eee3;
+      color: var(--navy);
+      padding: 5px 8px;
+      font-size: 11px;
+      font-weight: 900;
+      text-decoration: none;
+      white-space: nowrap;
     }
 
     .progress-wrap {
@@ -991,6 +1078,13 @@
       font-size: 13px;
     }
 
+    .footer .made-by {
+      display: inline-block;
+      margin-top: 10px;
+      color: white;
+      font-weight: 900;
+    }
+
     .hidden { display: none !important; }
 
     @media (max-width: 1040px) {
@@ -998,7 +1092,7 @@
         grid-template-columns: 1fr;
       }
 
-      .grid.three, .grid.four, .archetype-grid, .formula-grid, .proof-grid, .source-grid {
+      .grid.three, .grid.four, .archetype-grid, .formula-grid, .proof-grid, .source-grid, .source-hero {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -1008,7 +1102,7 @@
       .brand { min-width: 0; }
       .hero { min-height: auto; }
       .stats-strip, .score-ladder, .module-layout, .module-sections, .deep-grid, .check-grid,
-      .grid.two, .grid.three, .grid.four, .archetype-grid, .formula-grid, .proof-grid, .source-grid {
+      .grid.two, .grid.three, .grid.four, .archetype-grid, .formula-grid, .proof-grid, .source-grid, .source-hero {
         grid-template-columns: 1fr;
       }
       .section-head { align-items: flex-start; flex-direction: column; }
@@ -1053,6 +1147,7 @@
       .exam-paper.hidden-paper { display: block; }
       .paper-actions { display: none !important; }
       .question-block, .part-title, .exam-header { break-inside: avoid; }
+      .paper-credit, .rkb-credit { color: #555; }
       th { position: static; }
     }
   </style>
@@ -1076,7 +1171,7 @@
     <div>
       <span class="eyebrow">BITS Pilani Probability and Statistics</span>
       <h1>Compre 2 Exam Command Centre</h1>
-      <p class="subtitle">An exam-first MATH F113 field manual built from the supplied PYQs, the old analysis report, and the 1091-page lecture slide bundle. It prioritises scoring routines, traps, formula triggers, and timed practice over passive notes.</p>
+      <p class="subtitle">An exam-first MATH F113 field manual built from the supplied PYQs, the existing PYQ report, and the 1091-page lecture slide bundle. It prioritises scoring routines, traps, formula triggers, and timed practice over passive notes.</p>
       <div class="hero-actions">
         <a href="#patterns">Start With High-Yield Patterns</a>
         <a class="secondary" href="#pyq">Open Full PYQ Matrix</a>
@@ -1147,7 +1242,7 @@
           <ul>
             <li>Type-II error, power, and sample size algebra.</li>
             <li>Gamma/chi-square pivots and non-standard confidence intervals.</li>
-            <li>Proof questions: independence transformations, mutual exclusive vs independent.</li>
+            <li>Proof questions: independence transformations, mutually exclusive vs independent.</li>
             <li>Custom rejection regions and estimator comparison.</li>
           </ul>
         </div>
@@ -1190,6 +1285,7 @@
           <p>Return to Type-II/power, sample size, custom pivots, proof-heavy parts, and arithmetic checks.</p>
         </div>
       </div>
+      <div class="rkb-credit">made by RKB :)</div>
     </section>
 
     <section id="patterns" class="section">
@@ -1227,6 +1323,7 @@
         <p>Open-book does not mean open-search. Know which page of your mind to open as soon as the question begins.</p>
       </div>
       <div id="formulaBank" class="formula-grid"></div>
+      <div class="rkb-credit">made by RKB :)</div>
     </section>
 
     <section id="proofs" class="section">
@@ -1238,6 +1335,7 @@
         <p>Compiled from the proof and theorem slides in the 1091-page bundle, then rewritten as answer-ready derivations with clean notation. Open the cards you need and practise reproducing the spine without hunting through the deck.</p>
       </div>
       <div id="proofBank" class="proof-grid"></div>
+      <div class="rkb-credit">made by RKB :)</div>
     </section>
 
     <section id="pyq" class="section">
@@ -1272,7 +1370,7 @@
           <span class="section-kicker">07 · Ten Full Practice Papers</span>
           <h2>Compre-Style Paper Bank</h2>
         </div>
-        <p>Ten complete 135-mark papers in the supplied exam style. They are written as printable question papers, not solution prompts, and use clean HTML math symbols instead of TeX markup.</p>
+        <p>Ten complete 135-mark papers in the supplied exam style. They are written as printable question papers, not solution prompts, and use clean symbols to avoid rendering failures.</p>
       </div>
       <div class="paper-actions">
         <div id="paperTabs" class="paper-tabs" aria-label="Practice paper selector"></div>
@@ -1280,6 +1378,7 @@
         <button class="print-btn" type="button" onclick="window.print()">Print Papers</button>
       </div>
       <div id="papersStack" class="papers-stack"></div>
+      <div class="rkb-credit">made by RKB :)</div>
     </section>
 
     <section id="sources" class="section">
@@ -1288,7 +1387,7 @@
           <span class="section-kicker">08 · Open-Book Index</span>
           <h2>Where The Slide Deck Helps</h2>
         </div>
-        <p>The 1091-page slide bundle is too large to browse during panic. These are fast landing zones for the main exam moves.</p>
+        <p>The 1091-page slide bundle is too large to browse during timed solving. These are fast landing zones for the main exam moves.</p>
       </div>
       <div class="source-grid">
         <div class="source-card"><h3>Bayes and Total Probability</h3><p>Slides around pages 116 and 141.</p><ul><li>Use for partition diagrams and posterior probability notation.</li></ul></div>
@@ -1320,12 +1419,14 @@
         </div>
         <div id="checklistGrid" class="check-grid"></div>
       </div>
+      <div class="rkb-credit">made by RKB :)</div>
     </section>
   </main>
 
   <footer class="footer">
     <strong>MATH F113 Probability and Statistics · BITS Pilani</strong><br>
     Built from supplied PYQs, the existing PYQ report, and the lecture slide bundle for focused preparation.
+    <br><span class="made-by">made by RKB :)</span>
   </footer>
 
   <script>
@@ -1652,7 +1753,7 @@
           {label: "Mean, σ known", tex: String.raw`\bar X\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt n}`, note: "Use z when σ is known or large-sample normal approximation is stated."},
           {label: "Mean, σ unknown normal sample", tex: String.raw`\bar X\pm t_{\alpha/2,\;n-1}\dfrac{S}{\sqrt n}`, note: "Degrees of freedom are n-1."},
           {label: "Proportion", tex: String.raw`\hat p\pm z_{\alpha/2}\sqrt{\dfrac{\hat p(1-\hat p)}{n}}`, note: "Use only when normal approximation conditions are reasonable."},
-          {label: "Variance", tex: String.raw`\left(\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,\;n-1}},\;\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,\;n-1}}\right)`, note: "This convention uses χ²_q as the q-quantile."},
+          {label: "Variance", tex: String.raw`\left(\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,\;n-1}},\;\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,\;n-1}}\right)`, note: "This convention uses χ²_q as the q-quantile."},
           {label: "Gamma scale", tex: String.raw`\left(\dfrac{2\sum X_i}{\chi^2_{1-\alpha/2,\;2n\alpha}},\;\dfrac{2\sum X_i}{\chi^2_{\alpha/2,\;2n\alpha}}\right)`, note: "Invert the pivot carefully."}
         ]
       },
@@ -2408,6 +2509,7 @@
           </ol>
           ${paper.partB.map(renderQuestion).join("")}
           <div class="exam-end">END OF PRACTICE PAPER ${paperNumber}</div>
+          <div class="paper-credit">made by RKB :)</div>
         </article>
       `;
     }
