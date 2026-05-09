@@ -1681,6 +1681,259 @@
       }
     ];
 
+    const proofBank = [
+      {
+        module: "Probability",
+        title: "Empty Event and Finite Additivity",
+        pages: "Slide bundle pages 77-79",
+        statement: String.raw`\Pr(\varnothing)=0,\qquad A_1,\ldots,A_n\text{ pairwise disjoint}\Rightarrow \Pr\!\left(\bigcup_{i=1}^{n}A_i\right)=\sum_{i=1}^{n}\Pr(A_i).`,
+        steps: [
+          String.raw`S\cup\varnothing=S,\qquad S\cap\varnothing=\varnothing.`,
+          String.raw`1=\Pr(S)=\Pr(S\cup\varnothing)=\Pr(S)+\Pr(\varnothing)=1+\Pr(\varnothing).`,
+          String.raw`\therefore\ \Pr(\varnothing)=0.`,
+          String.raw`\Pr(A_1\cup A_2)=\Pr(A_1)+\Pr(A_2)\quad\text{when }A_1\cap A_2=\varnothing.`,
+          String.raw`\Pr\!\left(\bigcup_{i=1}^{n}A_i\right)=\Pr\!\left(\bigcup_{i=1}^{n-1}A_i\right)+\Pr(A_n)=\sum_{i=1}^{n}\Pr(A_i)\quad\text{by induction}.`
+        ]
+      },
+      {
+        module: "Probability",
+        title: "Complement Rule",
+        pages: "Slide bundle pages 82-83",
+        statement: String.raw`\Pr(A^c)=1-\Pr(A).`,
+        steps: [
+          String.raw`A\cup A^c=S,\qquad A\cap A^c=\varnothing.`,
+          String.raw`1=\Pr(S)=\Pr(A\cup A^c)=\Pr(A)+\Pr(A^c).`,
+          String.raw`\therefore\ \Pr(A^c)=1-\Pr(A).`
+        ]
+      },
+      {
+        module: "Probability",
+        title: "Monotonicity and Probability Bound",
+        pages: "Slide bundle pages 87-90",
+        statement: String.raw`B\subseteq A\Rightarrow \Pr(B)\le \Pr(A),\qquad 0\le \Pr(A)\le1.`,
+        steps: [
+          String.raw`A=B\cup(A\cap B^c),\qquad B\cap(A\cap B^c)=\varnothing.`,
+          String.raw`\Pr(A)=\Pr(B)+\Pr(A\cap B^c)\ge \Pr(B).`,
+          String.raw`A\subseteq S\Rightarrow \Pr(A)\le \Pr(S)=1,\qquad \Pr(A)\ge0\text{ by the probability axiom}.`
+        ]
+      },
+      {
+        module: "Probability",
+        title: "Bayes Theorem from Total Probability",
+        pages: "Slide bundle pages 116 and 141",
+        statement: String.raw`H_1,\ldots,H_k\text{ partition }S,\ \Pr(E)>0\Rightarrow \Pr(H_j\mid E)=\dfrac{\Pr(H_j)\Pr(E\mid H_j)}{\sum_{i=1}^{k}\Pr(H_i)\Pr(E\mid H_i)}.`,
+        steps: [
+          String.raw`E=\bigcup_{i=1}^{k}(E\cap H_i),\qquad (E\cap H_i)\cap(E\cap H_j)=\varnothing\text{ for }i\ne j.`,
+          String.raw`\Pr(E)=\sum_{i=1}^{k}\Pr(E\cap H_i)=\sum_{i=1}^{k}\Pr(H_i)\Pr(E\mid H_i).`,
+          String.raw`\Pr(H_j\mid E)=\dfrac{\Pr(H_j\cap E)}{\Pr(E)}=\dfrac{\Pr(H_j)\Pr(E\mid H_j)}{\sum_{i=1}^{k}\Pr(H_i)\Pr(E\mid H_i)}.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Linearity of Expectation",
+        pages: "Slide bundle pages 207-211",
+        statement: String.raw`\operatorname{E}(aX+b)=a\operatorname{E}(X)+b.`,
+        steps: [
+          String.raw`\operatorname{E}(aX+b)=\sum_x (ax+b)\Pr(X=x).`,
+          String.raw`=\ a\sum_x x\Pr(X=x)+b\sum_x\Pr(X=x).`,
+          String.raw`=\ a\operatorname{E}(X)+b.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Variance Under Linear Transformation",
+        pages: "Slide bundle pages 221-224",
+        statement: String.raw`\operatorname{Var}(aX+b)=a^2\operatorname{Var}(X),\qquad \sigma_{aX+b}=|a|\sigma_X.`,
+        steps: [
+          String.raw`\operatorname{E}(aX+b)=a\mu+b,\qquad \mu=\operatorname{E}(X).`,
+          String.raw`\operatorname{Var}(aX+b)=\operatorname{E}\!\left[(aX+b-a\mu-b)^2\right].`,
+          String.raw`=\operatorname{E}\!\left[a^2(X-\mu)^2\right]=a^2\operatorname{Var}(X).`,
+          String.raw`\sigma_{aX+b}=\sqrt{a^2\sigma_X^2}=|a|\sigma_X.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Computational Formula for Variance",
+        pages: "Slide bundle pages 226-227",
+        statement: String.raw`\operatorname{Var}(X)=\operatorname{E}(X^2)-\{\operatorname{E}(X)\}^2.`,
+        steps: [
+          String.raw`\operatorname{Var}(X)=\operatorname{E}\!\left[(X-\mu)^2\right],\qquad \mu=\operatorname{E}(X).`,
+          String.raw`=\operatorname{E}(X^2-2\mu X+\mu^2).`,
+          String.raw`=\operatorname{E}(X^2)-2\mu\operatorname{E}(X)+\mu^2=\operatorname{E}(X^2)-\mu^2.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "MGF Generates Moments",
+        pages: "Slide bundle pages 239-240",
+        statement: String.raw`M_X(t)=\operatorname{E}(e^{tX})\Rightarrow M_X^{(k)}(0)=\operatorname{E}(X^k).`,
+        steps: [
+          String.raw`e^{tX}=\sum_{k=0}^{\infty}\dfrac{t^kX^k}{k!}.`,
+          String.raw`M_X(t)=\operatorname{E}(e^{tX})=\sum_{k=0}^{\infty}\dfrac{t^k\operatorname{E}(X^k)}{k!}.`,
+          String.raw`M_X(t)=1+\mu_1t+\dfrac{\mu_2t^2}{2!}+\cdots,\qquad \mu_k=\operatorname{E}(X^k).`,
+          String.raw`\therefore\ M_X^{(k)}(0)=\mu_k=\operatorname{E}(X^k).`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Binomial MGF, Mean, and Variance",
+        pages: "Slide bundle pages 260-264",
+        statement: String.raw`X\sim\operatorname{Bin}(n,p)\Rightarrow M_X(t)=(q+pe^t)^n,\quad \operatorname{E}(X)=np,\quad \operatorname{Var}(X)=npq,\quad q=1-p.`,
+        steps: [
+          String.raw`M_X(t)=\sum_{x=0}^{n}e^{tx}\binom{n}{x}p^xq^{\,n-x}.`,
+          String.raw`=\sum_{x=0}^{n}\binom{n}{x}(pe^t)^xq^{\,n-x}=(q+pe^t)^n.`,
+          String.raw`M_X'(t)=n(q+pe^t)^{n-1}pe^t,\qquad M_X'(0)=np.`,
+          String.raw`M_X''(0)=n(n-1)p^2+np.`,
+          String.raw`\operatorname{Var}(X)=M_X''(0)-\{M_X'(0)\}^2=n(n-1)p^2+np-n^2p^2=npq.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Geometric Mean",
+        pages: "Slide bundle pages 294 and 355",
+        statement: String.raw`X\sim\operatorname{Geom}(p),\ \Pr(X=x)=q^{x-1}p\Rightarrow \operatorname{E}(X)=\dfrac1p.`,
+        steps: [
+          String.raw`\operatorname{E}(X)=\sum_{x=1}^{\infty}xq^{x-1}p=p\sum_{x=1}^{\infty}xq^{x-1}.`,
+          String.raw`\sum_{x=0}^{\infty}q^x=\dfrac1{1-q}\quad\Rightarrow\quad \sum_{x=1}^{\infty}xq^{x-1}=\dfrac1{(1-q)^2}.`,
+          String.raw`\operatorname{E}(X)=p\cdot\dfrac1{(1-q)^2}=p\cdot\dfrac1{p^2}=\dfrac1p.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Poisson Mean and Variance",
+        pages: "Slide bundle pages 304-308 and 365-368",
+        statement: String.raw`X\sim\operatorname{Pois}(\mu)\Rightarrow \operatorname{E}(X)=\mu,\quad \operatorname{Var}(X)=\mu.`,
+        steps: [
+          String.raw`\operatorname{E}(X)=\sum_{x=0}^{\infty}x e^{-\mu}\dfrac{\mu^x}{x!}=e^{-\mu}\mu\sum_{x=1}^{\infty}\dfrac{\mu^{x-1}}{(x-1)!}=\mu.`,
+          String.raw`\operatorname{E}\{X(X-1)\}=\sum_{x=2}^{\infty}x(x-1)e^{-\mu}\dfrac{\mu^x}{x!}=\mu^2.`,
+          String.raw`\operatorname{E}(X^2)=\operatorname{E}\{X(X-1)\}+\operatorname{E}(X)=\mu^2+\mu.`,
+          String.raw`\operatorname{Var}(X)=\operatorname{E}(X^2)-\{\operatorname{E}(X)\}^2=\mu.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "Poisson MGF",
+        pages: "Slide bundle pages 307-308 and 368-369",
+        statement: String.raw`X\sim\operatorname{Pois}(\mu)\Rightarrow M_X(t)=\exp\{\mu(e^t-1)\}.`,
+        steps: [
+          String.raw`M_X(t)=\sum_{x=0}^{\infty}e^{tx}e^{-\mu}\dfrac{\mu^x}{x!}=e^{-\mu}\sum_{x=0}^{\infty}\dfrac{(\mu e^t)^x}{x!}.`,
+          String.raw`=e^{-\mu}\exp(\mu e^t)=\exp\{\mu(e^t-1)\}.`
+        ]
+      },
+      {
+        module: "Continuous",
+        title: "Standard Normal Symmetry",
+        pages: "Slide bundle page 475",
+        statement: String.raw`Z\sim N(0,1)\Rightarrow \Phi(-z)=1-\Phi(z).`,
+        steps: [
+          String.raw`\Phi(-z)=\int_{-\infty}^{-z}\dfrac1{\sqrt{2\pi}}e^{-u^2/2}\,du.`,
+          String.raw`\text{Put }v=-u,\ du=-dv:\quad \Phi(-z)=\int_{z}^{\infty}\dfrac1{\sqrt{2\pi}}e^{-v^2/2}\,dv.`,
+          String.raw`=\ 1-\int_{-\infty}^{z}\dfrac1{\sqrt{2\pi}}e^{-v^2/2}\,dv=1-\Phi(z).`
+        ]
+      },
+      {
+        module: "Continuous",
+        title: "Exponential Memoryless Property",
+        pages: "Slide bundle pages 504-505 and 524-525",
+        statement: String.raw`X\sim\operatorname{Exp}(\lambda)\Rightarrow \Pr(X>s+t\mid X>s)=\Pr(X>t).`,
+        steps: [
+          String.raw`\Pr(X>x)=e^{-\lambda x},\qquad x\ge0.`,
+          String.raw`\Pr(X>s+t\mid X>s)=\dfrac{\Pr(X>s+t\cap X>s)}{\Pr(X>s)}.`,
+          String.raw`=\dfrac{\Pr(X>s+t)}{\Pr(X>s)}=\dfrac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}=\Pr(X>t).`
+        ]
+      },
+      {
+        module: "Joint",
+        title: "Covariance Shortcut",
+        pages: "Slide bundle page 651",
+        statement: String.raw`\operatorname{Cov}(X,Y)=\operatorname{E}(XY)-\operatorname{E}(X)\operatorname{E}(Y).`,
+        steps: [
+          String.raw`\operatorname{Cov}(X,Y)=\operatorname{E}\!\left[(X-\mu_X)(Y-\mu_Y)\right].`,
+          String.raw`=\operatorname{E}(XY-\mu_XY-\mu_YX+\mu_X\mu_Y).`,
+          String.raw`=\operatorname{E}(XY)-\mu_X\operatorname{E}(Y)-\mu_Y\operatorname{E}(X)+\mu_X\mu_Y.`,
+          String.raw`=\operatorname{E}(XY)-\mu_X\mu_Y.`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "MGF of an Independent Sum",
+        pages: "Slide bundle pages 708-710",
+        statement: String.raw`Y=X_1+\cdots+X_n,\ X_i\text{ independent}\Rightarrow M_Y(t)=\prod_{i=1}^{n}M_{X_i}(t).`,
+        steps: [
+          String.raw`M_Y(t)=\operatorname{E}\!\left(e^{t(X_1+\cdots+X_n)}\right)=\operatorname{E}\!\left(\prod_{i=1}^{n}e^{tX_i}\right).`,
+          String.raw`\text{Independence gives }\operatorname{E}\!\left(\prod_{i=1}^{n}e^{tX_i}\right)=\prod_{i=1}^{n}\operatorname{E}(e^{tX_i}).`,
+          String.raw`\therefore\ M_Y(t)=\prod_{i=1}^{n}M_{X_i}(t).`
+        ]
+      },
+      {
+        module: "Discrete",
+        title: "MGF of an Affine Transformation",
+        pages: "Slide bundle page 710",
+        statement: String.raw`Y=\alpha+\beta X\Rightarrow M_Y(t)=e^{\alpha t}M_X(\beta t).`,
+        steps: [
+          String.raw`M_Y(t)=\operatorname{E}(e^{tY})=\operatorname{E}\!\left(e^{t(\alpha+\beta X)}\right).`,
+          String.raw`=e^{\alpha t}\operatorname{E}(e^{(\beta t)X})=e^{\alpha t}M_X(\beta t).`
+        ]
+      },
+      {
+        module: "Continuous",
+        title: "Product of Positive Variables is Approximately Lognormal",
+        pages: "Slide bundle page 738",
+        statement: String.raw`Y=\prod_{i=1}^{n}X_i,\ X_i>0\Rightarrow \log Y=\sum_{i=1}^{n}\log X_i\approx N(n\mu_L,n\sigma_L^2)\text{ by CLT}.`,
+        steps: [
+          String.raw`L_i=\log X_i,\qquad \operatorname{E}(L_i)=\mu_L,\quad \operatorname{Var}(L_i)=\sigma_L^2.`,
+          String.raw`\log Y=\log\!\left(\prod_{i=1}^{n}X_i\right)=\sum_{i=1}^{n}\log X_i=\sum_{i=1}^{n}L_i.`,
+          String.raw`\dfrac{\log Y-n\mu_L}{\sqrt{n}\sigma_L}\approx N(0,1)\quad\text{by the Central Limit Theorem}.`,
+          String.raw`\therefore\ \log Y\text{ is approximately normal, so }Y\text{ is approximately lognormal}.`
+        ]
+      },
+      {
+        module: "Estimation",
+        title: "Unbiasedness of Sample Variance",
+        pages: "Slide bundle page 764",
+        statement: String.raw`S^2=\dfrac1{n-1}\sum_{i=1}^{n}(X_i-\bar X)^2\Rightarrow \operatorname{E}(S^2)=\sigma^2.`,
+        steps: [
+          String.raw`\sum_{i=1}^{n}(X_i-\bar X)^2=\sum_{i=1}^{n}(X_i-\mu)^2-n(\bar X-\mu)^2.`,
+          String.raw`\operatorname{E}\!\left[\sum_{i=1}^{n}(X_i-\mu)^2\right]=n\sigma^2.`,
+          String.raw`\operatorname{E}\!\left[n(\bar X-\mu)^2\right]=n\operatorname{Var}(\bar X)=n\cdot\dfrac{\sigma^2}{n}=\sigma^2.`,
+          String.raw`\operatorname{E}\!\left[\sum_{i=1}^{n}(X_i-\bar X)^2\right]=(n-1)\sigma^2.`,
+          String.raw`\operatorname{E}(S^2)=\dfrac1{n-1}(n-1)\sigma^2=\sigma^2.`
+        ]
+      },
+      {
+        module: "Inference",
+        title: "Confidence Interval for Mean When Sigma is Known",
+        pages: "Slide bundle page 818",
+        statement: String.raw`X_i\sim N(\mu,\sigma^2),\ \sigma\text{ known}\Rightarrow \bar X\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt n}.`,
+        steps: [
+          String.raw`Z=\dfrac{\bar X-\mu}{\sigma/\sqrt n}\sim N(0,1).`,
+          String.raw`\Pr(-z_{\alpha/2}\le Z\le z_{\alpha/2})=1-\alpha.`,
+          String.raw`\Pr\!\left(\bar X-z_{\alpha/2}\dfrac{\sigma}{\sqrt n}\le \mu\le \bar X+z_{\alpha/2}\dfrac{\sigma}{\sqrt n}\right)=1-\alpha.`
+        ]
+      },
+      {
+        module: "Inference",
+        title: "Confidence Interval for Variance",
+        pages: "Slide bundle pages 910 and 915",
+        statement: String.raw`X_i\sim N(\mu,\sigma^2)\Rightarrow \dfrac{(n-1)S^2}{\sigma^2}\sim\chi^2_{n-1}.`,
+        steps: [
+          String.raw`\Pr\!\left(\chi^2_{\alpha/2,n-1}\le\dfrac{(n-1)S^2}{\sigma^2}\le\chi^2_{1-\alpha/2,n-1}\right)=1-\alpha.`,
+          String.raw`\text{Invert the positive inequalities carefully:}`,
+          String.raw`\Pr\!\left(\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,n-1}}\le\sigma^2\le\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,n-1}}\right)=1-\alpha.`
+        ]
+      },
+      {
+        module: "Inference",
+        title: "Confidence Interval for Standard Deviation",
+        pages: "Slide bundle page 918",
+        statement: String.raw`\sigma\text{ interval is obtained by taking square roots of the variance interval}.`,
+        steps: [
+          String.raw`\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,n-1}}\le\sigma^2\le\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,n-1}}.`,
+          String.raw`\sigma>0\Rightarrow \sqrt{\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,n-1}}}\le\sigma\le\sqrt{\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,n-1}}}.`
+        ]
+      }
+    ];
+
     const pyqs = [
       ["Aug 2022", "Q1(a)", "Probability", "Distribution of m things among men/women; prove/disprove odd count probability formula.", "Use binomial expansion/parity split; state event A clearly.", "hard", 8],
       ["Aug 2022", "Q1(b)", "Discrete", "Quiz with 4 true-false and 6 MCQ; probability exactly 2 correct.", "Sum over TF correct count and MCQ correct count combinations.", "medium", 4],
@@ -2041,11 +2294,38 @@
       typesetMath();
     }
 
+    function renderProofBank() {
+      document.getElementById("proofBank").innerHTML = proofBank.map((proof, index) => `
+        <article class="proof-card searchable" data-module="${proof.module}">
+          <div>
+            <h3>${proof.title}</h3>
+            <div class="tag-row">
+              <span class="tag" style="background:${moduleColors[proof.module]};color:white">${proof.module}</span>
+              <span class="tag clean">Proof ${String(index + 1).padStart(2, "0")}</span>
+            </div>
+          </div>
+          <div>
+            <span class="formula-label">Statement</span>
+            <div class="formula">\\[${proof.statement}\\]</div>
+          </div>
+          <details>
+            <summary>Open proof</summary>
+            <div class="proof-step">
+              ${proof.steps.map(step => `<div class="formula">\\[${step}\\]</div>`).join("")}
+            </div>
+          </details>
+          <div class="proof-source">${proof.pages}</div>
+        </article>
+      `).join("");
+      typesetMath();
+    }
+
     function typesetMath() {
       if (window.MathJax?.typesetPromise) {
         window.MathJax.typesetPromise([
           document.getElementById("formulaBank"),
-          document.getElementById("moduleCards")
+          document.getElementById("moduleCards"),
+          document.getElementById("proofBank")
         ]).catch(() => {});
       }
     }
@@ -2202,6 +2482,7 @@
       renderArchetypes();
       renderModules();
       renderFormulaBank();
+      renderProofBank();
       renderPyqs();
       renderPracticePapers();
       renderChecklist();
