@@ -557,6 +557,68 @@
       text-transform: uppercase;
     }
 
+    .module-deep {
+      border-top: 2px solid rgba(18,19,20,0.12);
+      padding-top: 12px;
+    }
+
+    .module-deep summary {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--navy);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .module-deep summary::-webkit-details-marker { display: none; }
+    .module-deep summary::after {
+      content: "+";
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(18,19,20,0.18);
+      border-radius: 50%;
+      color: var(--red);
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .module-deep[open] summary::after { content: "-"; }
+
+    .deep-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .deep-box {
+      border-radius: var(--radius);
+      background: #f5eee3;
+      padding: 12px;
+    }
+
+    .deep-box b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .deep-box ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
     .formula-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -566,14 +628,28 @@
     .formula {
       display: block;
       margin: 8px 0;
-      padding: 10px;
+      padding: 12px;
       border-radius: var(--radius);
       background: #f1eadf;
       color: var(--ink);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 13px;
       overflow-x: auto;
-      white-space: nowrap;
+      font-size: 15px;
+    }
+
+    .formula-label {
+      display: block;
+      margin-top: 14px;
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .formula-note {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .table-wrap {
@@ -887,7 +963,7 @@
       .topbar { align-items: flex-start; flex-direction: column; }
       .brand { min-width: 0; }
       .hero { min-height: auto; }
-      .stats-strip, .score-ladder, .module-layout, .module-sections, .check-grid,
+      .stats-strip, .score-ladder, .module-layout, .module-sections, .deep-grid, .check-grid,
       .grid.two, .grid.three, .grid.four, .archetype-grid, .formula-grid, .source-grid {
         grid-template-columns: 1fr;
       }
@@ -1196,6 +1272,20 @@
   </footer>
 
   <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["\\(", "\\)"]],
+        displayMath: [["\\[", "\\]"]],
+        processEscapes: true,
+        packages: {"[+]": ["ams"]}
+      },
+      loader: {load: ["[tex]/ams"]},
+      svg: {fontCache: "global"}
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <script>
     const moduleColors = {
       "Inference": "#a83232",
       "Estimation": "#136f63",
@@ -1335,7 +1425,6 @@
         certainty: "Every paper",
         verdict: "The largest scoring block: confidence intervals plus hypothesis testing. Recent papers add β, power, p-values, and sample-size calculations.",
         mustWrite: ["Parameter and hypotheses/interval target", "Test statistic or pivot with distribution", "Tail/df/critical value", "Numerical substitution", "Conclusion in words"],
-        formulas: ["z-CI: x̄ ± z_{α/2}σ/√n", "t-CI: x̄ ± t_{α/2,n-1}s/√n", "χ²-CI: ((n-1)s²/χ²_upper, (n-1)s²/χ²_lower)", "β(μ') = P(fail to reject H0 | μ=μ')"],
         drills: ["One z-test with p-value", "One proportion test", "One β/sample-size question", "One CI for σ or σ²"],
         pyq: ["2025 Q6 battery test [19]", "2024 B-Q3 custom/power [19]", "2023 B-Q3/B-Q4 [27]", "2022 Q8 proportion test [19]"]
       },
@@ -1346,7 +1435,6 @@
         certainty: "Every paper",
         verdict: "MLE is a guaranteed discriminator. MoM/unbiasedness questions are usually algebraic but reward clean expectation work.",
         mustWrite: ["Sample notation", "Likelihood or moment equation", "Log-likelihood simplification", "Derivative = 0", "Estimator with parameter constraints"],
-        formulas: ["L(θ)=Πf(x_i;θ)", "ℓ(θ)=Σln f(x_i;θ)", "MoM: E[X]=x̄, E[X²]=m₂ if needed", "MSE(T)=Var(T)+Bias(T)²"],
         drills: ["MLE for gamma-like pdf", "MLE for geometric stopping", "MoM for one-parameter distribution", "Unbiasedness of aΣY_i²"],
         pyq: ["2025 Q4 [19]", "2024 B-Q1 [21]", "2023 B-Q1/B-Q2(ii) [21]", "2022 Q2 [20]"]
       },
@@ -1357,7 +1445,6 @@
         certainty: "Every paper",
         verdict: "Normal and gamma are the backbone. CDF derivations and normal approximation are fast if the distribution is recognised.",
         mustWrite: ["Support first", "CDF/integral bounds", "Mean/variance before standardising", "Continuity correction if discrete", "Final probability with table lookup"],
-        formulas: ["F(x)=∫_{lower}^{x}f(t)dt", "Gamma(α,β): E=αβ, Var=αβ²", "Z=(X-μ)/σ", "Bin(n,p) ≈ N(np,npq)"],
         drills: ["PDF to CDF", "Gamma stock/shortage probability", "Normal approximation with 0.5 correction", "Within k standard deviations from custom pdf"],
         pyq: ["2025 Q2(a)/Q5 [29]", "2024 Q3 [19]", "2023 Q3 [13]", "2022 Q4 [19]"]
       },
@@ -1368,7 +1455,6 @@
         certainty: "Every paper",
         verdict: "The cleanest bankable marks. It is arithmetic-heavy, so layout discipline matters more than cleverness.",
         mustWrite: ["Five-column table", "Normal equations", "a and b values", "SSE and s²", "R² interpretation"],
-        formulas: ["b=Sxy/Sxx", "a=ȳ-bx̄", "SSE=Syy-bSxy", "s²=SSE/(n-2)", "R²=bSxy/Syy"],
         drills: ["Solve one full table in 18 minutes", "Check line passes through (x̄,ȳ)", "Compute R² from Sxx/Syy/Sxy", "Regression probability difference"],
         pyq: ["2025 Q7 [19]", "2024 Q1(b) [12]", "2023 Q4 [14]", "2022 Q3 [20]"]
       },
@@ -1379,7 +1465,6 @@
         certainty: "High",
         verdict: "Discrete questions hide inside stories: quiz scores, demand, Poisson processes, prize PMFs, and CLT for sums.",
         mustWrite: ["Define X and support", "Distribution with parameters", "PMF table", "Expectation/variance", "Approximation justification"],
-        formulas: ["Bin: μ=np, Var=npq", "Poisson: P(X=k)=e^{-λ}λ^k/k!", "MGF sum: M_{X+Y}=M_XM_Y", "CLT sum: ΣX_i ≈ N(nμ,nσ²)"],
         drills: ["PMF of average of two demands", "Poisson sum using MGF", "Conditional Poisson count", "CLT pastry/order quantity"],
         pyq: ["2025 Q1/Q3 [39]", "2024 Q2 [19]", "2023 Q2/Q6/Q7 [28]", "2022 Q1(b,c) [11]"]
       },
@@ -1390,7 +1475,6 @@
         certainty: "Every paper",
         verdict: "A dependable 10-19 mark structure. Draw the support; the rest is integration bookkeeping.",
         mustWrite: ["Support diagram", "Normalisation integral", "Marginal integrals", "Independence test", "Conditional expectation/covariance"],
-        formulas: ["f_X(x)=∫f(x,y)dy", "f_{X|Y}=f(x,y)/f_Y(y)", "E[X|Y=y]=∫x f_{X|Y}dx", "Cov(X,Y)=E[XY]-E[X]E[Y]"],
         drills: ["Rectangle support", "Triangle support", "Conditional expectation", "U=max(X,Y), V=min(X,Y) identity trick"],
         pyq: ["2025 Q2(b) [10]", "2024 Q4 [18]", "2023 Q5 [15]", "2022 Q5 [19]"]
       },
@@ -1401,60 +1485,142 @@
         certainty: "High",
         verdict: "Smaller direct weight, huge indirect weight. Bad probability notation damages every later module.",
         mustWrite: ["Event definitions", "Conditional probability identity", "Independence/exclusivity statement", "Partition if Bayes", "Check probability bounds"],
-        formulas: ["P(A|B)=P(A∩B)/P(B)", "Independence: P(A∩B)=P(A)P(B)", "Mutually exclusive: P(A∩B)=0", "Total probability: P(E)=ΣP(H_i)P(E|H_i)"],
         drills: ["Bayes with coins/cards", "Proof that exclusivity and independence differ", "Construct sample space", "Expected value as fair fee"],
         pyq: ["2025 Q1 [20]", "2024 Q1(a) [7]", "2023 Q1 [10]", "2022 Q1(a) [8]"]
       }
     ];
+
+    const moduleDeepDives = {
+      Probability: {
+        concept: ["Start every story by naming the event or random variable.", "For Bayes, build the denominator before touching the numerator.", "Independence is a multiplication test, not a visual overlap test."],
+        routine: ["Write the partition H1, H2, ...", "Compute P(E) using total probability.", "Check the final probability is between 0 and 1 and answers the conditional direction asked."],
+        traps: ["P(A|B) and P(B|A) are different.", "Mutually exclusive non-null events cannot be independent.", "A fair-fee question is almost always E(X)."]
+      },
+      Discrete: {
+        concept: ["Support comes first: list possible values before computing probabilities.", "Sums of independent variables use convolution or MGFs.", "Poisson-process waiting times are gamma; conditional arrival counts are binomial."],
+        routine: ["Make a PMF table and verify total probability 1.", "Compute E(X) and E(X²) before variance.", "For CLT, write mean and variance of the sum, not only one observation."],
+        traps: ["Do not forget continuity correction for discrete normal approximations.", "Do not use Poisson after conditioning on total arrivals.", "Do not merge outcomes with the same value without adding their probabilities."]
+      },
+      Continuous: {
+        concept: ["Always state the support with the density.", "CDFs need piecewise cases outside the support.", "Gamma, normal, and CLT questions are often disguised as word problems."],
+        routine: ["Normalise if a constant is unknown.", "Integrate for CDF and moments using the correct bounds.", "Standardise only after identifying the correct mean and standard deviation."],
+        traps: ["Scale β and rate λ are reciprocals.", "For Gamma(α,β), variance is αβ², not αβ.", "For Binomial-to-Normal, endpoints shift by 0.5."]
+      },
+      Joint: {
+        concept: ["Draw the support. Rectangles and triangles behave differently.", "Marginals are functions, not numbers.", "Conditional expectation is an integral under a conditional density."],
+        routine: ["Find k using a double integral over the support.", "Compute fX and fY with bounds visible in the answer.", "Test independence before using product simplifications."],
+        traps: ["Triangular limits change with x or y.", "fX(x)fY(y) must equal fXY(x,y) on the support.", "For U=max and V=min, use U+V=X+Y and UV=XY when possible."]
+      },
+      Estimation: {
+        concept: ["MLE is optimisation of the likelihood; MoM is moment matching.", "Log-likelihood is not optional for product densities.", "Unbiasedness is an expectation calculation."],
+        routine: ["Write L(θ), then ℓ(θ).", "Differentiate, solve, and check the parameter range.", "For MoM, equate population moments to sample moments and isolate the parameter."],
+        traps: ["Do not drop parameter-dependent constants.", "Support depending on θ changes the MLE logic.", "Estimator comparison uses variance/MSE, not which expression looks simpler."]
+      },
+      Inference: {
+        concept: ["Choose the distribution before choosing the formula.", "CI and HT questions are mirror images: estimate versus decision.", "Type-II error is computed under the alternative value, not under H0."],
+        routine: ["Identify parameter, assumptions, tail, and known/unknown σ.", "Write statistic/pivot with its distribution.", "State the conclusion in the language of the question."],
+        traps: ["One-tail and two-tail critical values differ.", "t intervals use n-1 degrees of freedom.", "χ² intervals invert endpoints."]
+      },
+      Regression: {
+        concept: ["The regression line is a deterministic calculation from five sums.", "SSE, s², and R² are all built from Sxx, Syy, Sxy.", "Probability-from-regression questions use the normal model around the true line."],
+        routine: ["Build columns x, y, x², y², xy.", "Compute b=Sxy/Sxx and a=ȳ-bx̄.", "Use SSE=Syy-bSxy and verify the line passes through (x̄,ȳ)."],
+        traps: ["Do not swap x-on-y with y-on-x.", "Use n-2 degrees of freedom for s².", "R² is a proportion; report it as a percentage only after multiplying by 100."]
+      }
+    };
 
     const formulaGroups = [
       {
         module: "Probability",
         title: "Probability Core",
         trigger: "Event definitions, Bayes, independence proofs.",
-        formulas: ["P(A|B)=P(A∩B)/P(B)", "P(E)=ΣP(H_i)P(E|H_i)", "P(H_j|E)=P(H_j)P(E|H_j)/P(E)", "Independent: P(A∩B)=P(A)P(B)", "Mutually exclusive: P(A∩B)=0"]
+        formulas: [
+          {label: "Conditional probability", tex: String.raw`\Pr(A\mid B)=\dfrac{\Pr(A\cap B)}{\Pr(B)},\qquad \Pr(B)>0`, note: "Use only after identifying the conditioning event."},
+          {label: "Law of total probability", tex: String.raw`\Pr(E)=\sum_{i=1}^{k}\Pr(H_i)\Pr(E\mid H_i)`, note: "The H_i must be mutually exclusive and exhaustive."},
+          {label: "Bayes theorem", tex: String.raw`\Pr(H_j\mid E)=\dfrac{\Pr(H_j)\Pr(E\mid H_j)}{\sum_{i=1}^{k}\Pr(H_i)\Pr(E\mid H_i)}`, note: "Posterior equals prior times likelihood divided by evidence."},
+          {label: "Independence", tex: String.raw`A\perp B \iff \Pr(A\cap B)=\Pr(A)\Pr(B)`, note: "For non-null events, mutual exclusivity and independence cannot both hold."}
+        ]
       },
       {
         module: "Discrete",
         title: "Discrete Distributions",
         trigger: "PMFs, quiz/demand/prize stories, Poisson process.",
-        formulas: ["Bin(n,p): μ=np, σ²=npq", "Geom(p): P(N=n)=(1-p)^{n-1}p", "Pois(λ): P(X=k)=e^{-λ}λ^k/k!", "If N(t)=n, N(s)|N(t)=n ~ Bin(n,s/t)", "M_X(t)=E(e^{tX})"]
+        formulas: [
+          {label: "Binomial", tex: String.raw`X\sim\operatorname{Bin}(n,p):\quad \Pr(X=x)=\binom{n}{x}p^x(1-p)^{n-x}`, note: "Mean np, variance np(1-p)."},
+          {label: "Poisson", tex: String.raw`X\sim\operatorname{Pois}(\lambda):\quad \Pr(X=x)=e^{-\lambda}\dfrac{\lambda^x}{x!}`, note: "Sums of independent Poisson variables are Poisson."},
+          {label: "Geometric", tex: String.raw`\Pr(N=n)=(1-p)^{n-1}p,\quad n=1,2,\ldots`, note: "Use this version for trials until first success."},
+          {label: "Conditional Poisson process count", tex: String.raw`N(s)\mid N(t)=n\sim\operatorname{Bin}\!\left(n,\dfrac{s}{t}\right),\quad 0<s<t`, note: "This is the bank-arrivals trap."},
+          {label: "Moment generating function", tex: String.raw`M_X(t)=\operatorname{E}\!\left(e^{tX}\right),\qquad M_{X+Y}(t)=M_X(t)M_Y(t)`, note: "Product rule needs independence."}
+        ]
       },
       {
         module: "Continuous",
         title: "Continuous Distributions",
         trigger: "CDF/PDF, normal, gamma, CLT.",
-        formulas: ["F(x)=∫_{-∞}^{x}f(t)dt", "E[X]=∫x f(x)dx", "Gamma(α,β): μ=αβ, σ²=αβ²", "Z=(X-μ)/σ", "ΣX_i ≈ N(nμ,nσ²)"]
+        formulas: [
+          {label: "CDF from density", tex: String.raw`F_X(x)=\Pr(X\le x)=\int_{-\infty}^{x} f_X(u)\,du`, note: "Write the support cases explicitly."},
+          {label: "Normal standardisation", tex: String.raw`Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)`, note: "Use σ, not σ², in the denominator."},
+          {label: "Gamma with scale β", tex: String.raw`X\sim\Gamma(\alpha,\beta):\quad f(x)=\dfrac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha)\beta^\alpha},\quad x>0`, note: "Mean αβ, variance αβ²."},
+          {label: "Gamma to chi-square pivot", tex: String.raw`X_i\sim\Gamma(\alpha,\beta)\Rightarrow \dfrac{2\sum_{i=1}^{n}X_i}{\beta}\sim\chi^2_{2n\alpha}`, note: "Key pivot for the 2025-style gamma CI."},
+          {label: "CLT for sums", tex: String.raw`\sum_{i=1}^{n}X_i \approx N\!\left(n\mu,\;n\sigma^2\right)`, note: "For averages, divide mean and variance by n appropriately."}
+        ]
       },
       {
         module: "Joint",
         title: "Joint Distributions",
         trigger: "Marginal, conditional, covariance, independence.",
-        formulas: ["∫∫ f(x,y) dxdy = 1", "f_X(x)=∫f(x,y)dy", "f_{X|Y}(x|y)=f(x,y)/f_Y(y)", "E[X|Y=y]=∫x f_{X|Y}(x|y)dx", "ρ=Cov(X,Y)/(σ_Xσ_Y)"]
+        formulas: [
+          {label: "Normalisation", tex: String.raw`\iint_{\mathcal R} f_{X,Y}(x,y)\,dx\,dy=1`, note: "The region R is the whole question."},
+          {label: "Marginals", tex: String.raw`f_X(x)=\int f_{X,Y}(x,y)\,dy,\qquad f_Y(y)=\int f_{X,Y}(x,y)\,dx`, note: "Bounds must match the support."},
+          {label: "Conditional density", tex: String.raw`f_{X\mid Y}(x\mid y)=\dfrac{f_{X,Y}(x,y)}{f_Y(y)},\qquad f_Y(y)>0`, note: "Then integrate x times this density for E(X|Y=y)."},
+          {label: "Covariance and correlation", tex: String.raw`\operatorname{Cov}(X,Y)=\operatorname{E}(XY)-\operatorname{E}(X)\operatorname{E}(Y),\qquad \rho=\dfrac{\operatorname{Cov}(X,Y)}{\sigma_X\sigma_Y}`, note: "Linear transformations change correlation by the sign of the product of slopes."}
+        ]
       },
       {
         module: "Estimation",
         title: "Estimation",
         trigger: "MLE, MoM, unbiasedness, estimator choice.",
-        formulas: ["L(θ)=Π f(x_i;θ)", "ℓ(θ)=Σ ln f(x_i;θ)", "∂ℓ/∂θ=0", "MoM: population moment = sample moment", "MSE(T)=Var(T)+Bias(T)²"]
+        formulas: [
+          {label: "Likelihood", tex: String.raw`L(\theta;\mathbf x)=\prod_{i=1}^{n} f(x_i;\theta)`, note: "Include every parameter-dependent factor."},
+          {label: "Log-likelihood", tex: String.raw`\ell(\theta)=\log L(\theta;\mathbf x)=\sum_{i=1}^{n}\log f(x_i;\theta)`, note: "Differentiate log-likelihood, not the raw product."},
+          {label: "MLE equation", tex: String.raw`\dfrac{\partial \ell(\theta)}{\partial \theta}=0`, note: "After solving, check endpoints and parameter constraints."},
+          {label: "Method of moments", tex: String.raw`\operatorname{E}_{\theta}(X)=\bar X,\qquad \operatorname{E}_{\theta}(X^2)=\dfrac1n\sum_{i=1}^{n}X_i^2`, note: "Use as many moments as parameters."},
+          {label: "Mean squared error", tex: String.raw`\operatorname{MSE}(T)=\operatorname{Var}(T)+\left(\operatorname{Bias}(T)\right)^2`, note: "For unbiased estimators, compare variances."}
+        ]
       },
       {
         module: "Inference",
         title: "Confidence Intervals",
         trigger: "Mean, proportion, variance, gamma scale.",
-        formulas: ["x̄ ± z_{α/2}σ/√n", "x̄ ± t_{α/2,n-1}s/√n", "p̂ ± z_{α/2}√(p̂q̂/n)", "((n-1)s²/χ²_{α/2}, (n-1)s²/χ²_{1-α/2})", "2ΣX_i/β ~ χ²(2nα)"]
+        formulas: [
+          {label: "Mean, σ known", tex: String.raw`\bar X\pm z_{\alpha/2}\dfrac{\sigma}{\sqrt n}`, note: "Use z when σ is known or large-sample normal approximation is stated."},
+          {label: "Mean, σ unknown normal sample", tex: String.raw`\bar X\pm t_{\alpha/2,\;n-1}\dfrac{S}{\sqrt n}`, note: "Degrees of freedom are n-1."},
+          {label: "Proportion", tex: String.raw`\hat p\pm z_{\alpha/2}\sqrt{\dfrac{\hat p(1-\hat p)}{n}}`, note: "Use only when normal approximation conditions are reasonable."},
+          {label: "Variance", tex: String.raw`\left(\dfrac{(n-1)S^2}{\chi^2_{\alpha/2,\;n-1}},\;\dfrac{(n-1)S^2}{\chi^2_{1-\alpha/2,\;n-1}}\right)`, note: "This convention uses χ²_q as the q-quantile."},
+          {label: "Gamma scale", tex: String.raw`\left(\dfrac{2\sum X_i}{\chi^2_{1-\alpha/2,\;2n\alpha}},\;\dfrac{2\sum X_i}{\chi^2_{\alpha/2,\;2n\alpha}}\right)`, note: "Invert the pivot carefully."}
+        ]
       },
       {
         module: "Inference",
         title: "Hypothesis Testing",
         trigger: "Claim, p-value, critical value, β, power.",
-        formulas: ["Z=(x̄-μ₀)/(σ/√n)", "T=(x̄-μ₀)/(s/√n)", "p-value two-tail = 2P(Z>|z_obs|)", "β(μ')=P(accept H0|μ=μ')", "n=((z_α+z_β)σ/δ)²"]
+        formulas: [
+          {label: "z statistic", tex: String.raw`Z=\dfrac{\bar X-\mu_0}{\sigma/\sqrt n}`, note: "Use when σ is known."},
+          {label: "t statistic", tex: String.raw`T=\dfrac{\bar X-\mu_0}{S/\sqrt n}\sim t_{n-1}\quad\text{under }H_0`, note: "Use for normal data with unknown σ."},
+          {label: "Two-sided p-value", tex: String.raw`p\text{-value}=2\Pr\!\left(Z\ge |z_{\mathrm{obs}}|\right)`, note: "For t tests, use the t tail instead."},
+          {label: "Type-II error, right-tailed z test", tex: String.raw`\beta(\mu')=\Phi\!\left(z_{\alpha}-\dfrac{\mu'-\mu_0}{\sigma/\sqrt n}\right)`, note: "Change sign/formula according to the tail."},
+          {label: "Sample size for right-tailed z test", tex: String.raw`n=\left(\dfrac{(z_{\alpha}+z_{\beta})\sigma}{\mu'-\mu_0}\right)^2`, note: "Round up to the next integer."}
+        ]
       },
       {
         module: "Regression",
         title: "Simple Linear Regression",
         trigger: "x-y table and fitted line.",
-        formulas: ["Sxx=Σx²-nx̄²", "Syy=Σy²-nȳ²", "Sxy=Σxy-nx̄ȳ", "b=Sxy/Sxx; a=ȳ-bx̄", "SSE=Syy-bSxy; R²=bSxy/Syy"]
+        formulas: [
+          {label: "Corrected sums", tex: String.raw`S_{xx}=\sum x_i^2-n\bar x^{\,2},\quad S_{yy}=\sum y_i^2-n\bar y^{\,2},\quad S_{xy}=\sum x_iy_i-n\bar x\,\bar y`, note: "Build these from the five-column table."},
+          {label: "Least-squares line", tex: String.raw`\hat b=\dfrac{S_{xy}}{S_{xx}},\qquad \hat a=\bar y-\hat b\,\bar x,\qquad \hat y=\hat a+\hat b x`, note: "Check that the line passes through (x̄,ȳ)."},
+          {label: "Error variance", tex: String.raw`\operatorname{SSE}=S_{yy}-\hat b\,S_{xy},\qquad s^2=\dfrac{\operatorname{SSE}}{n-2}`, note: "Regression loses two degrees of freedom."},
+          {label: "Coefficient of determination", tex: String.raw`R^2=\dfrac{\operatorname{SSR}}{\operatorname{SST}}=1-\dfrac{\operatorname{SSE}}{S_{yy}}=\dfrac{\hat b\,S_{xy}}{S_{yy}}`, note: "Report as proportion or percentage as asked."}
+        ]
       }
     ];
 
@@ -1725,6 +1891,13 @@
       return "clean";
     }
 
+    function formulasForModule(moduleName) {
+      return formulaGroups
+        .filter(group => group.module === moduleName)
+        .flatMap(group => group.formulas)
+        .slice(0, 4);
+    }
+
     function renderArchetypes() {
       document.getElementById("archetypes").innerHTML = archetypes.map(item => `
         <article class="archetype-card searchable" data-module="${item.module}">
@@ -1763,7 +1936,7 @@
             </div>
             <div class="module-block">
               <strong>Formula Spine</strong>
-              <ul>${item.formulas.map(x => `<li>${x}</li>`).join("")}</ul>
+              <ul>${formulasForModule(item.name).map(f => `<li>\\(${f.tex}\\)</li>`).join("")}</ul>
             </div>
             <div class="module-block">
               <strong>Drills</strong>
@@ -1774,6 +1947,23 @@
               <ul>${item.pyq.map(x => `<li>${x}</li>`).join("")}</ul>
             </div>
           </div>
+          <details class="module-deep">
+            <summary>Open Full Module Page</summary>
+            <div class="deep-grid">
+              <div class="deep-box">
+                <b>Concept Depth</b>
+                <ul>${moduleDeepDives[item.name].concept.map(x => `<li>${x}</li>`).join("")}</ul>
+              </div>
+              <div class="deep-box">
+                <b>Exam Routine</b>
+                <ul>${moduleDeepDives[item.name].routine.map(x => `<li>${x}</li>`).join("")}</ul>
+              </div>
+              <div class="deep-box">
+                <b>Mark-Losing Traps</b>
+                <ul>${moduleDeepDives[item.name].traps.map(x => `<li>${x}</li>`).join("")}</ul>
+              </div>
+            </div>
+          </details>
         </article>
       `).join("");
     }
@@ -1784,9 +1974,23 @@
           <h3>${group.title}</h3>
           <div class="tag-row"><span class="tag" style="background:${moduleColors[group.module]};color:white">${group.module}</span></div>
           <p>${group.trigger}</p>
-          ${group.formulas.map(f => `<code class="formula">${f}</code>`).join("")}
+          ${group.formulas.map(f => `
+            <span class="formula-label">${f.label}</span>
+            <div class="formula">\\[${f.tex}\\]</div>
+            <p class="formula-note">${f.note}</p>
+          `).join("")}
         </article>
       `).join("");
+      typesetMath();
+    }
+
+    function typesetMath() {
+      if (window.MathJax?.typesetPromise) {
+        window.MathJax.typesetPromise([
+          document.getElementById("formulaBank"),
+          document.getElementById("moduleCards")
+        ]).catch(() => {});
+      }
     }
 
     function levelLabel(level) {
@@ -1945,6 +2149,7 @@
       renderPracticePapers();
       renderChecklist();
       document.getElementById("globalSearch").addEventListener("input", applyFilters);
+      typesetMath();
     }
 
     init();
